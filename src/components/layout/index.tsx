@@ -1,12 +1,13 @@
-import React from "react";
-
 import Header from "../header";
+import Content from "./content";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      <main className="container mx-auto py-10">{children}</main>
+      <main className="container mx-auto flex py-5">
+        <Content />
+      </main>
     </div>
   );
 };
