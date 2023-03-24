@@ -1,42 +1,120 @@
 [
   {
     "id": 1,
-    "name": "General Manager"
+    "name": "General Manager",
+    "cards": [
+      {
+        "id": 1,
+        "title": "Social Worker",
+        "cover": "/ceo.jpeg",
+        "members": [
+          { "id": 7, "img": "http://dummyimage.com/143x100.png/dddddd/000000", "username": "blouw6" },
+          { "id": 8, "img": "http://dummyimage.com/170x100.png/ff4444/ffffff", "username": "kfranca7" },
+          { "id": 9, "img": "http://dummyimage.com/218x100.png/cc0000/ffffff", "username": "privelin8" }
+        ],
+        "labels": [
+          {
+            "id": 4,
+            "name": "Persevering",
+            "color": "#fd0505"
+          },
+          {
+            "id": 5,
+            "name": "toolset",
+            "color": "#04cc08"
+          }
+        ],
+        "commentsNumber": 2,
+        "attachmentsNumber": 2
+      },
+      {
+        "id": 2,
+        "title": "Marketing Manager",
+        "cover": "/ceo.jpeg",
+        "description": "rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu",
+        "members": [
+          { "id": 3, "img": "http://dummyimage.com/155x100.png/ff4444/ffffff", "username": "pwilsdon2" },
+          { "id": 4, "img": "http://dummyimage.com/130x100.png/ff4444/ffffff", "username": "lhourihane3" },
+          { "id": 5, "img": "http://dummyimage.com/149x100.png/cc0000/ffffff", "username": "dbonnette4" },
+          { "id": 6, "img": "http://dummyimage.com/120x100.png/dddddd/000000", "username": "dgath5" }
+        ],
+        "labels": [
+          {
+            "id": 5,
+            "name": "toolset",
+            "color": "#1010ff"
+          }
+        ],
+        "commentsNumber": 1,
+        "attachmentsNumber": 2
+      }
+    ]
   },
   {
     "id": 2,
-    "name": "Clinical Specialist"
+    "name": "Clinical Specialist",
+    "cards": [
+      {
+        "id": 3,
+        "title": "Cost Accountant",
+        "cover": "http://dummyimage.com/x.png/dddddd/000000",
+        "description": "vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget",
+        "members": [
+          { "id": 1, "img": "http://dummyimage.com/237x100.png/ff4444/ffffff", "username": "cgussie0" },
+          { "id": 3, "img": "http://dummyimage.com/155x100.png/ff4444/ffffff", "username": "pwilsdon2" },
+          { "id": 7, "img": "http://dummyimage.com/143x100.png/dddddd/000000", "username": "blouw6" },
+          { "id": 9, "img": "http://dummyimage.com/218x100.png/cc0000/ffffff", "username": "privelin8" }
+        ],
+        "labels": [
+          {
+            "id": 1,
+            "name": "zero administration",
+            "color": "#688dda"
+          }
+        ],
+        "commentsNumber": 1,
+        "attachmentsNumber": 0
+      }
+    ]
   },
   {
     "id": 3,
-    "name": "Human Resources Assistant II"
+    "name": "Human Resources Assistant II",
+    "cards": []
   },
   {
     "id": 4,
-    "name": "Senior Developer"
+    "name": "Senior Developer",
+    "cards": []
   },
   {
     "id": 5,
-    "name": "Executive Secretary"
+    "name": "Executive Secretary",
+    "cards": []
   },
   {
     "id": 6,
-    "name": "Director of Sales"
+    "name": "Director of Sales",
+    "cards": []
   },
   {
     "id": 7,
-    "name": "Actuary"
+    "name": "Actuary",
+    "cards": []
   },
   {
     "id": 8,
-    "name": "Biostatistician II"
+    "name": "Biostatistician II",
+    "cards": []
   },
   {
     "id": 9,
-    "name": "Marketing Manager"
+    "name": "Marketing Manager",
+    "cards": []
   },
   {
     "id": 10,
-    "name": "Financial Analyst"
+    "name": "Financial Analyst",
+    "cards": []
   }
 ]

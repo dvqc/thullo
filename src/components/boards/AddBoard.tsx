@@ -1,5 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { AddSvg, CloseSvg, ImageSvg, LockSvg } from "../Svg";
+import { Button } from "../commons";
+import { AddSvg, CloseSvg, ImageSvg, LockSvg } from "../svg";
 
 export default function AddBoard({}) {
   const [title, setTitle] = useState("");
@@ -40,27 +41,17 @@ export default function AddBoard({}) {
           ></input>
         </div>
         <div className="my-4 flex justify-between">
-          <label
-            htmlFor="cover"
-            className="relative flex h-8 w-28 cursor-pointer items-center justify-evenly rounded-lg bg-gray-100 px-2 
-          text-sm font-medium text-gray-500 duration-300  hover:bg-gray-200"
-          >
+          <label htmlFor="cover" className="btn secondary relative">
             <span className="h-4">
-              <ImageSvg className="fill-gray-500"></ImageSvg>
+              <ImageSvg></ImageSvg>
             </span>
             Cover
-            <input type={"file"} id="cover" className="absolute -z-50 opacity-0" onChange={handleCover}></input>
+            <input type={"file"} id="cover" className="absolute -z-50 w-1  opacity-0" onChange={handleCover}></input>
           </label>
 
-          <label
-            htmlFor="private"
-            className={`flex h-8 w-28 cursor-pointer items-center justify-evenly  rounded-lg 
-          px-2 text-sm  font-medium duration-300 ${
-            !isPrivate ? "bg-gray-100 text-gray-500 hover:bg-gray-200" : "bg-blue-500 text-white hover:bg-blue-600"
-          }`}
-          >
+          <label htmlFor="private" className={`btn ${!isPrivate ? "secondary" : "primary"}`}>
             <span className="h-4">
-              <LockSvg className={` ${!isPrivate ? "fill-gray-500" : "fill-white"}`}></LockSvg>
+              <LockSvg></LockSvg>
             </span>
             Private
             <input
@@ -72,31 +63,21 @@ export default function AddBoard({}) {
             ></input>
           </label>
         </div>
-        <div className="flex justify-end">
-          <button
-            className="mx-4 flex h-8 w-20 items-center justify-center rounded-lg bg-none px-2 
-            text-sm font-medium text-gray-400 duration-300 hover:bg-gray-200"
-            onClick={handleCancel}
-          >
+        <div className="flex justify-end gap-3">
+          <Button btnType="secondary-light" onClick={handleCancel}>
             Cancel
-          </button>
-          <button
-            className="flex h-8 w-20 items-center justify-evenly rounded-lg bg-blue-500 px-2 
-          text-sm font-medium text-white duration-300  hover:bg-blue-600"
-          >
+          </Button>
+          <Button>
             <span className="h-4">
-              <AddSvg className="fill-white"></AddSvg>
+              <AddSvg></AddSvg>
             </span>
             Create
-          </button>
+          </Button>
         </div>
       </form>
-      <button
-        className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500
-       duration-300 hover:bg-blue-600"
-      >
+      <Button className="absolute top-3 right-3 h-8 w-8">
         <CloseSvg className="h-5 w-5 fill-white"></CloseSvg>
-      </button>
+      </Button>
     </article>
   );
 }

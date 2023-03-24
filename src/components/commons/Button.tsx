@@ -1,5 +1,5 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  btnType?: "primary" | "secondary" | "light";
+  btnType?: "primary" | "secondary" | "secondary-light" | "primary-light";
 }
 
 const Button: React.FC<ButtonProps> = ({ btnType = "primary", children, className,...rest }) => {

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html {
-  font-size: 16px;
+  font-size: 18px;
 }
 input {
   all: inherit;
@@ -12,15 +12,18 @@ input {
 @layer components {
   .btn {
     @apply flex h-8 cursor-pointer items-center  justify-center gap-2 rounded-lg py-3 
-    px-2 text-xs  font-medium duration-300 hover:brightness-90;
+    px-2 text-xs  font-medium duration-300;
   }
   .primary {
-    @apply bg-blue-500 fill-white text-white;
+    @apply bg-blue-500 fill-white text-white hover:bg-blue-400;
+  }
+  .primary-light {
+    @apply bg-blue-100 fill-blue-500 text-blue-500 hover:bg-blue-200;
   }
   .secondary {
-    @apply bg-gray-200 fill-gray-500  text-gray-500;
+    @apply bg-gray-100 fill-gray-500  text-gray-500 hover:bg-gray-200;
   }
-  .light {
-    @apply bg-none fill-gray-400  text-gray-400 hover:bg-gray-200;
+  .secondary-light {
+    @apply bg-none fill-gray-400  text-gray-400 hover:bg-gray-100;
   }
 }
