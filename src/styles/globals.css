@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  font-size: 16px;
+}
+input {
+  all: inherit;
+}
+
+@layer components {
+  .btn {
+    @apply flex h-8 cursor-pointer items-center  justify-center gap-2 rounded-lg py-3 
+    px-2 text-xs  font-medium duration-300 hover:brightness-90;
+  }
+  .primary {
+    @apply bg-blue-500 fill-white text-white;
+  }
+  .secondary {
+    @apply bg-gray-200 fill-gray-500  text-gray-500;
+  }
+  .light {
+    @apply bg-none fill-gray-400  text-gray-400 hover:bg-gray-200;
+  }
+}

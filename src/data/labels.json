@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "zero administration",
+    "color": "#688dda"
+  },
+  {
+    "id": 2,
+    "name": "neutral",
+    "color": "#c99649"
+  },
+  {
+    "id": 3,
+    "name": "concept",
+    "color": "#73927b"
+  },
+  {
+    "id": 4,
+    "name": "Persevering",
+    "color": "#87b246"
+  },
+  {
+    "id": 5,
+    "name": "toolset",
+    "color": "#6eba5b"
+  },
+  {
+    "id": 6,
+    "name": "even-keeled",
+    "color": "#c5cbdb"
+  },
+  {
+    "id": 7,
+    "name": "foreground",
+    "color": "#0b1dc6"
+  },
+  {
+    "id": 8,
+    "name": "context-sensitive",
+    "color": "#5cc2a1"
+  },
+  {
+    "id": 9,
+    "name": "radical",
+    "color": "#0995e3"
+  },
+  {
+    "id": 10,
+    "name": "Synergized",
+    "color": "#082881"
+  }
+]
