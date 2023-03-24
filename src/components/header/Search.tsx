@@ -2,8 +2,8 @@ import React from "react";
 
 const Search = ({}) => {
   return (
-    <div>
-      <form className="flex items-center">
+    <div className="w-80 max-w-full">
+      <form className="flex w-full items-center">
         <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
@@ -26,14 +26,14 @@ const Search = ({}) => {
           <input
             type="text"
             id="simple-search"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            className="borde bg-whie block w-full  rounded-lg py-2 px-3 text-sm text-gray-900 drop-shadow-lg focus:border-blue-500 focus:ring-blue-500 "
             placeholder="Keyword..."
             required
           />
         </div>
         <button
           type="submit"
-          className="ml-2 rounded-lg border border-blue-700 bg-blue-700 p-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="ml-2 rounded-lg border border-blue-500 bg-blue-500 p-2.5 text-sm font-medium text-white hover:bg-blue-600 focus:ring-4 focus:ring-blue-500 "
         >
           <svg
             className="h-5 w-5"
