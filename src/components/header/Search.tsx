@@ -5,7 +5,7 @@ const Search = ({}) => {
   return (
     <div className="w-80 max-w-full">
       <div className="relative flex w-full items-center">
-        <Button className="absolute top-0 right-0 z-50" type="submit">
+        <Button className="absolute top-0 right-0 z-10" type="submit">
           Search
         </Button>
         <input
