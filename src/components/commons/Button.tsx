@@ -1,10 +1,10 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  btnType?: "primary" | "secondary";
+  btnType?: "primary" | "secondary" | "light";
 }
 
-const Button: React.FC<ButtonProps> = ({ color, children, ...rest }) => {
+const Button: React.FC<ButtonProps> = ({ btnType = "primary", children, className,...rest }) => {
   return (
-    <button {...rest} className={``}>
+    <button {...rest} className={`btn ${btnType} ${className}`}>
       {children}
     </button>
   );

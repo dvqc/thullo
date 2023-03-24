@@ -6,7 +6,7 @@ import ProfilePic from "../../../public/profilepic.jpg";
 const Profile = ({}) => {
   return (
     <div className="flex items-center space-x-2">
-      <Image className="h-11 w-11 rounded" src={ProfilePic} alt="Profile Picture" />
+      <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
       <div className="font-medium">
         <div>Xanthe Neal</div>
       </div>
