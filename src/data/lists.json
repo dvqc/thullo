@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "General Manager"
+  },
+  {
+    "id": 2,
+    "name": "Clinical Specialist"
+  },
+  {
+    "id": 3,
+    "name": "Human Resources Assistant II"
+  },
+  {
+    "id": 4,
+    "name": "Senior Developer"
+  },
+  {
+    "id": 5,
+    "name": "Executive Secretary"
+  },
+  {
+    "id": 6,
+    "name": "Director of Sales"
+  },
+  {
+    "id": 7,
+    "name": "Actuary"
+  },
+  {
+    "id": 8,
+    "name": "Biostatistician II"
+  },
+  {
+    "id": 9,
+    "name": "Marketing Manager"
+  },
+  {
+    "id": 10,
+    "name": "Financial Analyst"
+  }
+]
