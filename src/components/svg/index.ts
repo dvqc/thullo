@@ -5,3 +5,5 @@ export { default as LockSvg } from "./Lock";
 export { default as CommentSvg } from "./Comment";
 export { default as FileSvg } from "./File";
 export { default as PublicSvg } from "./Public";
+export { default as AccountSvg } from "./Account";
+export { default as PenSvg } from "./Pen";
