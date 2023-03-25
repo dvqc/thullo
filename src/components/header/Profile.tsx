@@ -8,7 +8,7 @@ const Profile = ({}) => {
     <div className="flex items-center space-x-2">
       <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
       <div className="font-medium">
-        <div>Xanthe Neal</div>
+        <label>Xanthe Neal</label>
       </div>
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 96 960 960" width="25">

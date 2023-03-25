@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import React from "react";
+import Image from "next/image";
 
-import { CloseSvg } from "../Svg";
+import { CloseSvg, AccountSvg } from "../Svg";
+import ProfilePic from "../../../public/profilepic.jpg";
 
 export default function Drawer({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
   return (
@@ -31,6 +33,16 @@ export default function Drawer({ isOpen, setIsOpen }: { isOpen: boolean; setIsOp
             </button>
           </header>
           <div className="divide-red mx-4 divide-y-8 divide-solid" />
+          <body className="bg-red m-4 h-full max-w-sm space-y-2">
+            <div className="flex items-center space-x-2 text-[10px]">
+              <AccountSvg className="h-5 w-5 text-gray-900" />
+              <p>Made by</p>
+            </div>
+            <div>
+              <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
+              <label>Xanthe Neal</label>
+            </div>
+          </body>
         </article>
       </section>
       <section
