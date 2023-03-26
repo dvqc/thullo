@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { FileSvg } from "../Svg";
+import { FileSvg } from "../svg";
 import ProfilePic from "../../../public/profilepic.jpg";
 
 export default function Team({}) {
@@ -28,56 +28,56 @@ export default function Team({}) {
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg  border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg  border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
               <label className="text-xs font-bold">Xanthe Neal</label>
             </div>
-            <button className="btn w-16 rounded-lg border border-2 border-red-500 text-red-500">Remove</button>
+            <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
         </div>
       </div>

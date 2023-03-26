@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { AccountSvg } from "../Svg";
+import { AccountSvg } from "../svg";
 import ProfilePic from "../../../public/profilepic.jpg";
 
 export default function Owner({}) {

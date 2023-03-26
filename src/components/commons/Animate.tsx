@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from "react";
+import { ReactNode } from "react";
 import { useDelayUnmount } from "~/hooks/utility";
 
 export default function Animate({

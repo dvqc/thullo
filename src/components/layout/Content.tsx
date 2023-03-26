@@ -8,7 +8,7 @@ import { LockSvg } from "../svg";
 
 const users = [{ name: "A" }, { name: "B" }, { name: "C" }];
 
-const Content = ({ setIsOpen }: { setIsOpen: any }) => {
+const Content = ({ setIsOpen }: { setIsOpen: (isOpen:boolean) => void }) => {
   return (
     <div className="flex justify-between space-x-4 p-4">
       <div className="flex items-center gap-4">

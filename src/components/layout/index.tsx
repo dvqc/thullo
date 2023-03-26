@@ -17,7 +17,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <div>
         <Header />
         <main className="container mx-auto flex flex-col">
-          {/* <Content /> */}
+          <Content setIsOpen={setIsOpen} />
           <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
           <div className="m-4 h-screen rounded-xl bg-[#F8F9FD] p-5">{children}</div>
         </main>
@@ -25,3 +25,5 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     </>
   );
 };
+
+export default Layout;

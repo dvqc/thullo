@@ -10,9 +10,9 @@ import Divider from "../commons/Divider";
 
 export default function Drawer({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
   return (
-    <main
+    <aside
       className={
-        "fixed inset-0 z-10 mt-16 transform overflow-hidden bg-opacity-25 ease-in-out" +
+        " fixed inset-0 z-10 mt-16 transform overflow-hidden bg-opacity-25 ease-in-out" +
         (isOpen
           ? " translate-x-0 opacity-100 transition-opacity duration-500  "
           : " translate-x-full opacity-0 transition-all delay-500  ")
@@ -24,7 +24,7 @@ export default function Drawer({ isOpen, setIsOpen }: { isOpen: boolean; setIsOp
           (isOpen ? " translate-x-0 " : " translate-x-full ")
         }
       >
-        <div className="relative flex h-full flex-col space-y-4 overflow-y-auto p-4">
+        <div className="scroll-hidden relative flex h-full flex-col space-y-4 overflow-y-auto p-4">
           <Header setIsOpen={setIsOpen} />
           <Divider className="h-[0.9px] w-full bg-gray-200" />
           <Owner />
@@ -38,6 +38,6 @@ export default function Drawer({ isOpen, setIsOpen }: { isOpen: boolean; setIsOp
           setIsOpen(false);
         }}
       ></section>
-    </main>
+    </aside>
   );
 }

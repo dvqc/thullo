@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import { CloseSvg } from "../Svg";
+import { CloseSvg } from "../svg";
 
 export default function Header({ setIsOpen }: { setIsOpen: any }) {
   return (
