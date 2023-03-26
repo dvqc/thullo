@@ -2,9 +2,8 @@ import Head from "next/head";
 import React from "react";
 
 import Header from "../header";
-import Content from "./Content";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const HeaderLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Head>
@@ -14,13 +13,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </Head>
       <div>
         <Header />
-        <main className="container mx-auto flex flex-col">
-          <Content />
-          <div className="m-4 h-screen rounded-xl bg-[#F8F9FD] p-5">{children}</div>
-        </main>
+        {children}
       </div>
     </>
   );
 };
 
-export default Layout;
+export default HeaderLayout;
