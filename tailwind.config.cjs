@@ -3,6 +3,9 @@ const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        poppins: "Poppins"
+      },
       animation: {
         "fade-in": "fadein 200ms ease-in forwards",
         "fade-out": "fadeout 200ms ease-in forwards",
@@ -56,9 +59,9 @@ const config = {
           }
         }
       }
-    },
+    }
   },
-  plugins: [],
+  plugins: []
 };
 
 module.exports = config;
