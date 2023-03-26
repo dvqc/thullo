@@ -1,7 +1,7 @@
 import React from "react";
 
 import Logo from "./Logo";
-import Label from "./label";
+import Label from "./Label";
 import Profile from "./Profile";
 import Search from "./Search";
 

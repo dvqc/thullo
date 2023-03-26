@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { Menu } from "~/components/menu";
 // import Link from "next/link";
 // import { signIn, signOut, useSession } from "next-auth/react";
 
@@ -8,9 +9,10 @@ import Head from "next/head";
 const Home: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
   return (
-    <>
-      <main></main>
-    </>
+    <main className="container mx-auto flex flex-col">
+      <Menu></Menu>
+      <div className="m-4 h-screen rounded-xl bg-[#F8F9FD] p-5"></div>
+    </main>
   );
 };
 
