@@ -5,7 +5,7 @@ import ProfilePic from "../../../public/profilepic.jpg";
 
 export default function Owner({}) {
   return (
-    <div className="owner space-y-2">
+    <div className="owner my-4 space-y-2">
       <div className="flex items-center space-x-2 text-[10px]">
         <AccountSvg className="h-5 w-5 text-gray-900" />
         <p>Made by</p>

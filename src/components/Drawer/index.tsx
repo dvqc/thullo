@@ -6,38 +6,18 @@ import Header from "./Header";
 import Owner from "./Owner";
 import Description from "./Description";
 import Team from "./Team";
-import Divider from "../commons/Divider";
+// import Divider from "../commons/Divider";
+// import Head from "next/head";
 
-export default function Drawer({ isOpen, setIsOpen }: { isOpen: boolean; setIsOpen: any }) {
+export default function Drawer({ setIsDrawer }: { setIsDrawer: () => void }) {
   return (
-    <aside
-      className={
-        " fixed inset-0 z-10 mt-16 transform overflow-hidden bg-opacity-25 ease-in-out" +
-        (isOpen
-          ? " translate-x-0 opacity-100 transition-opacity duration-500  "
-          : " translate-x-full opacity-0 transition-all delay-500  ")
-      }
-    >
-      <section
-        className={
-          " delay-400 absolute right-0 h-full w-screen max-w-xs transform bg-white shadow-xl transition-all duration-500 ease-in-out  " +
-          (isOpen ? " translate-x-0 " : " translate-x-full ")
-        }
-      >
-        <div className="scroll-hidden relative flex h-full flex-col space-y-4 overflow-y-auto p-4">
-          <Header setIsOpen={setIsOpen} />
-          <Divider className="h-[0.9px] w-full bg-gray-200" />
-          <Owner />
-          <Description />
-          <Team />
-        </div>
-      </section>
-      <section
-        className=" h-full w-screen cursor-pointer "
-        onClick={() => {
-          setIsOpen(false);
-        }}
-      ></section>
-    </aside>
+    <nav className="fixed top-0 right-0 h-screen w-80 overflow-y-auto bg-white p-4 transition-transform">
+      <Header />
+      {/* <Divider /> */}
+      <hr className="my-2 h-[3px] bg-gray-200"></hr>
+      <Owner />
+      <Description />
+      <Team />
+    </nav>
   );
 }

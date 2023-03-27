@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import Image from "next/image";
 
 import ProfilePic from "../../../public/profilepic.jpg";
@@ -33,20 +32,20 @@ const Menu = () => {
           ))}
         </div>
       </div>
-      <Button btnType="secondary-outlined" className="w-32" onClick={() => setIsOpen(true)}>
-        <MoreHorizSvg className="h-6 w-6"/>
+      {/* <Button btnType="secondary-outlined" className="w-32" onClick={() => setIsOpen(true)}>
+        <MoreHorizSvg className="h-6 w-6" />
         Show Menu
       </Button>
-      <Drawer isOpen={isOpen} setIsOpen={setIsOpen}/>
-      {/* <Collapsible
+      <Drawer isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+      <Collapsible
         toggler={
-          <Button btnType="secondary-outlined" className="w-32" onClick={() => setIsOpen(true)}>
-            <MoreHorizSvg className="h-6 w-6"/>
+          <Button btnType="secondary">
+            <MoreHorizSvg className="h-6 w-6" />
             Show Menu
           </Button>
         }
-        content={<Drawer isOpen={isOpen} setIsOpen={setIsOpen}/>}
-      /> */}
+        content={<Drawer setIsDrawer={() => {}} />}
+      />
     </div>
   );
 };
