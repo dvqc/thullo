@@ -15,10 +15,10 @@ export default function Team({}) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <div className="pr-4">
-              <label className="text-xs font-bold text-gray-500">admin</label>
+              <p className="text-xs font-bold text-gray-500">admin</p>
             </div>
           </div>
         </div>
@@ -26,56 +26,56 @@ export default function Team({}) {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg  border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg  border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-              <label className="text-xs font-bold">Xanthe Neal</label>
+              <p className="text-xs font-bold">Xanthe Neal</p>
             </div>
             <button className="btn w-16 rounded-lg border-2 border-red-500 text-red-500">Remove</button>
           </div>

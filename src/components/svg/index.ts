@@ -7,3 +7,7 @@ export { default as FileSvg } from "./File";
 export { default as PublicSvg } from "./Public";
 export { default as AccountSvg } from "./Account";
 export { default as PenSvg } from "./Pen";
+export { default as ArrwoDownSvg } from "./ArrowDown";
+export { default as AppsSvg } from "./Apps";
+export { default as MoreHorizSvg } from "./MoreHoriz";
+export { default as LogoSvg } from "./Logo";

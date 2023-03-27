@@ -9,13 +9,13 @@ export default function Description({}) {
       <div className="flex flex-col space-y-2">
         <div className="flex items-center space-x-2 text-gray-500">
           <FileSvg className="h-4 w-4" />
-          <label className="text-xs font-bold">description</label>
+          <p className="text-xs font-bold">description</p>
           <button className="btn w-16 rounded-lg border border-2 border-gray-300 bg-white">
             <PenSvg className="h-4 w-4" />
             <p>Edit</p>
           </button>
         </div>
-        <div className="text-xs" dangerouslySetInnerHTML={{ __html: description }} />
+        <pre>{description}</pre>
       </div>
     </div>
   );

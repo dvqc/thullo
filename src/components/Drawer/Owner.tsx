@@ -13,7 +13,7 @@ export default function Owner({}) {
       <div className="flex items-center space-x-2">
         <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
         <div className="flex flex-col">
-          <label className="text-xs font-bold">Xanthe Neal</label>
+          <p className="text-xs font-bold">Xanthe Neal</p>
           <p className="text-[10px]">on 4 July, 2020</p>
         </div>
       </div>
