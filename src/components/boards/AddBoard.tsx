@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Button } from "../commons";
-import { AddSvg, CloseSvg, ImageSvg, LockSvg } from "../svg";
+import { Button, Collapsible, VisibilityCard } from "../commons";
+import { AddSvg, CloseSvg, ImageSvg, LockSvg, PublicSvg } from "../svg";
 
 export default function AddBoard({}) {
   const [title, setTitle] = useState("");
@@ -48,8 +48,25 @@ export default function AddBoard({}) {
             Cover
             <input type={"file"} id="cover" className="absolute -z-50 w-1  opacity-0" onChange={handleCover}></input>
           </label>
-
-          <label htmlFor="private" className={`btn ${!isPrivate ? "secondary" : "primary"}`}>
+          <Collapsible
+            toggler={
+              <Button btnType="secondary" className="w-20">
+                {!isPrivate ? (
+                  <>
+                    <PublicSvg className="h-3 w-3" />
+                    Public
+                  </>
+                ) : (
+                  <>
+                    <LockSvg className="h-3 w-3" />
+                    Private
+                  </>
+                )}
+              </Button>
+            }
+            content={<VisibilityCard setIsPrivate={setPrivate} />}
+          />
+          {/* <label htmlFor="private" className={`btn ${!isPrivate ? "secondary" : "primary"}`}>
             <span className="h-4">
               <LockSvg></LockSvg>
             </span>
@@ -61,7 +78,7 @@ export default function AddBoard({}) {
               className="hidden"
               onChange={handleCheckPrivate}
             ></input>
-          </label>
+          </label> */}
         </div>
         <div className="flex justify-end gap-3">
           <Button btnType="secondary-light" onClick={handleCancel}>

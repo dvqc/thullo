@@ -1,9 +1,8 @@
 import Image from "next/image";
 
 import ProfilePic from "../../../public/profilepic.jpg";
-import { Button, Collapsible } from "../commons";
+import { Button, Collapsible, VisibilityCard } from "../commons";
 import { LockSvg } from "../svg";
-import VisibilityCard from "./VisibilityCard";
 
 const users = [{ name: "A" }, { name: "B" }, { name: "C" }];
 
@@ -12,6 +11,7 @@ const Menu = () => {
     <div className="flex justify-between space-x-4 p-4">
       <div className="flex items-center gap-4">
         <Collapsible
+          justify="left"
           toggler={
             <Button btnType="secondary">
               <LockSvg className="h-3 w-3" />
