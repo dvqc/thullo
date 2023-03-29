@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 import ProfilePic from "../../../public/profilepic.jpg";
-import { Button, Collapsible } from "../commons";
+import { Animate, Button, Collapsible } from "../commons";
 import { LockSvg, MoreHorizSvg } from "../svg";
 import VisibilityCard from "./VisibilityCard";
 import Drawer from "../Drawer";
@@ -32,12 +32,14 @@ const Menu = () => {
           ))}
         </div>
       </div>
-      {/* <Button btnType="secondary-outlined" className="w-32" onClick={() => setIsOpen(true)}>
+      <Button btnType="secondary" className="w-32" onClick={() => setIsOpen(true)}>
         <MoreHorizSvg className="h-6 w-6" />
         Show Menu
       </Button>
-      <Drawer isOpen={isOpen} setIsOpen={setIsOpen} /> */}
-      <Collapsible
+      <Animate isMounted={isOpen} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>
+        <Drawer setIsOpen={setIsOpen} />
+      </Animate>
+      {/* <Collapsible
         toggler={
           <Button btnType="secondary">
             <MoreHorizSvg className="h-6 w-6" />
@@ -45,7 +47,7 @@ const Menu = () => {
           </Button>
         }
         content={<Drawer setIsDrawer={() => {}} />}
-      />
+      /> */}
     </div>
   );
 };

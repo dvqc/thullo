@@ -9,10 +9,10 @@ import Team from "./Team";
 // import Divider from "../commons/Divider";
 // import Head from "next/head";
 
-export default function Drawer({ setIsDrawer }: { setIsDrawer: () => void }) {
+export default function Drawer({ setIsOpen }: { setIsOpen: any }) {
   return (
-    <nav className="fixed top-0 right-0 h-screen w-80 overflow-y-auto bg-white p-4 transition-transform">
-      <Header />
+    <nav className="fixed top-16 right-0 z-50 h-screen w-80 overflow-y-auto bg-white p-4 transition-transform">
+      <Header setIsOpen={setIsOpen} />
       {/* <Divider /> */}
       <hr className="my-2 h-[3px] bg-gray-200"></hr>
       <Owner />
