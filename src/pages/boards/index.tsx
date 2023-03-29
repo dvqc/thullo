@@ -6,7 +6,6 @@ import lists from "~/data/lists.json";
 
 const Boards: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const list = lists[0];
 
   return (
     <>
@@ -24,7 +23,9 @@ const Boards: NextPage = () => {
           <AddBoard></AddBoard>
         </section>
         <h2>lists</h2>
-        <section className="my-10 flex flex-wrap gap-10">{list && <List key={list.id} list={list}></List>}</section>
+        <section className="my-10 flex flex-wrap gap-10">
+          {lists.map((list) => list && list.cards.length > 0 && <List key={list.id} list={list}></List>)}
+        </section>
       </main>
     </>
   );

@@ -36,8 +36,7 @@ export default function AddBoard({}) {
             value={title}
             onChange={handleTitle}
             placeholder="Add board title.."
-            className="flex items-center rounded-lg  border-[1px] border-gray-400 px-4 py-2 
-            text-sm text-black shadow-lg focus:border-blue-500"
+            className="input"
           ></input>
         </div>
         <div className="my-4 flex justify-between">
