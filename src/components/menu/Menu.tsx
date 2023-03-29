@@ -37,7 +37,9 @@ const Menu = () => {
         Show Menu
       </Button>
       <Animate isMounted={isOpen} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>
-        <Drawer setIsOpen={setIsOpen} />
+        <div tabIndex={-1} className="absolute">
+          <Drawer setIsOpen={setIsOpen} />
+        </div>
       </Animate>
       {/* <Collapsible
         toggler={
