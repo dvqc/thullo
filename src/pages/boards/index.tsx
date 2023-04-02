@@ -16,45 +16,51 @@ const reorder = (
   destIndex: number
   // cardId: number
 ) => {
+  // if same list & same position: do nothing
+  if (destListId === srcListId && srcIndex === destIndex) return lists;
+
+  // create a deep clone of lists array
   const listsCopy = JSON.parse(JSON.stringify(lists));
+  // get destination list
   const destList = listsCopy.find((list: any) => list.id == destListId);
+  // sort the list to accecss items by index
   destList.cards.sort((a: any, b: any) => a.order - b.order);
+  // get source list
   const srcList = listsCopy.find((list: any) => list.id == srcListId);
+  // sort the list to accecss items by index
   srcList.cards.sort((a: any, b: any) => a.order - b.order);
 
-  srcList.cards[srcIndex].order = -1;
-  if (destListId === srcListId && srcIndex != destIndex) {
+  // srcList.cards[srcIndex].order = -1;
+  // if the card is moved in the same list
+  if (destListId === srcListId) {
     if (srcIndex < destIndex) {
       for (let i = srcIndex + 1; i <= destIndex; i++) srcList.cards[i].order--;
-    }
-    if (srcIndex > destIndex) {
+    } else if (srcIndex > destIndex) {
       for (let i = destIndex; i < srcIndex; i++) srcList.cards[i].order++;
     }
+    const cardsWithoutDraggable = srcList.cards.filter((card: any, i: number) => i !== srcIndex);
+    destList.cards = [...cardsWithoutDraggable, srcList.cards[srcIndex]];
+    // if the card is moved to a different list
   } else {
     for (let i = srcIndex + 1; i < srcList.cards.length; i++) srcList.cards[i].order--;
-    for (let i = destIndex; i < destList.cards.length; i++) srcList.cards[i].order++;
+    for (let i = destIndex; i < destList.cards.length; i++) destList.cards[i].order++;
     destList.cards = [...destList.cards, srcList.cards[srcIndex]];
     srcList.cards = srcList.cards.filter((card: any, i: number) => i !== srcIndex);
   }
-  destList.cards[srcIndex].order = destIndex;
-
+  destList.cards.at(-1).order = destIndex;
+  console.log(destList.cards);
   return listsCopy;
 };
+
 const Boards: NextPage = () => {
   const [lists, setLists] = useState(listsJson);
-  console.log(lists[0]?.cards.map((card) => card.order));
+  // console.log(lists[0]?.cards.map((card) => card.order));
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const onDragEnd = (result: DropResult) => {
     // dropped outside the list
     if (!result.destination) {
       return;
     }
-
-    console.log(result.source.droppableId);
-    console.log(result.destination.droppableId);
-    console.log(result.source.index);
-    console.log(result.destination.index);
-
     const reordered = reorder(
       lists,
       result.source.droppableId,

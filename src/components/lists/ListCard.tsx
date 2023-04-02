@@ -6,7 +6,6 @@ import { AddSvg, CommentSvg, FileSvg } from "../svg";
 import Badge from "./Badge";
 
 function ListCard({ card, index }: { card: any; index: number }) {
-  console.log(index, card.id);
   return (
     <Draggable key={card.id} draggableId={String(card.id)} index={index}>
       {(provided, snapshot) => (
