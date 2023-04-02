@@ -25,7 +25,8 @@
           }
         ],
         "commentsNumber": 2,
-        "attachmentsNumber": 2
+        "attachmentsNumber": 2,
+        "order": 0
       },
       {
         "id": 2,
@@ -46,7 +47,8 @@
           }
         ],
         "commentsNumber": 1,
-        "attachmentsNumber": 2
+        "attachmentsNumber": 2,
+        "order": 1
       }
     ]
   },
@@ -73,48 +75,9 @@
           }
         ],
         "commentsNumber": 1,
-        "attachmentsNumber": 0
+        "attachmentsNumber": 0,
+        "order": 0
       }
     ]
-  },
-  {
-    "id": 3,
-    "name": "Human Resources Assistant II",
-    "cards": []
-  },
-  {
-    "id": 4,
-    "name": "Senior Developer",
-    "cards": []
-  },
-  {
-    "id": 5,
-    "name": "Executive Secretary",
-    "cards": []
-  },
-  {
-    "id": 6,
-    "name": "Director of Sales",
-    "cards": []
-  },
-  {
-    "id": 7,
-    "name": "Actuary",
-    "cards": []
-  },
-  {
-    "id": 8,
-    "name": "Biostatistician II",
-    "cards": []
-  },
-  {
-    "id": 9,
-    "name": "Marketing Manager",
-    "cards": []
-  },
-  {
-    "id": 10,
-    "name": "Financial Analyst",
-    "cards": []
   }
 ]
