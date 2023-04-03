@@ -13,7 +13,7 @@ function List({ list }: { list: any }) {
         <article
           {...provided.droppableProps}
           ref={provided.innerRef}
-          className={`max-w-fit ${snapshot.isDraggingOver ? "bg-blue-100" : ""}`}
+          className={`w-60 ${snapshot.isDraggingOver ? "" : ""}`}
         >
           <div className="my-4 flex items-center justify-between">
             <h2 className="text-sm font-medium text-black"> {list.name}</h2>

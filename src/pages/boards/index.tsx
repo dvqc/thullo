@@ -6,16 +6,7 @@ import listsJson from "~/data/lists.json";
 import { DragDropContext, Droppable, DropResult, resetServerContext } from "react-beautiful-dnd";
 import { useState } from "react";
 
-// const lists = JSON.parse(JSON.stringify(listsJson));
-
-const reorder = (
-  lists: any,
-  srcListId: string,
-  destListId: string,
-  srcIndex: number,
-  destIndex: number
-  // cardId: number
-) => {
+const reorder = (lists: any, srcListId: string, destListId: string, srcIndex: number, destIndex: number) => {
   // if same list & same position: do nothing
   if (destListId === srcListId && srcIndex === destIndex) return lists;
 
@@ -90,7 +81,7 @@ const Boards: NextPage = () => {
       <h2>lists</h2>
       <section className="my-10 flex flex-wrap gap-10">
         <DragDropContext onDragEnd={onDragEnd}>
-          {lists.map((list: any) => list && list.cards.length > 0 && <List list={list} key={list.id}></List>)}
+          {lists.map((list: any) => list && <List list={list} key={list.id}></List>)}
         </DragDropContext>
       </section>
     </main>
