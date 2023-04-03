@@ -5,16 +5,16 @@ import ProfilePic from "../../../public/profilepic.jpg";
 
 export default function Owner({}) {
   return (
-    <div className="owner my-4 space-y-2">
-      <div className="flex items-center space-x-2 text-[10px]">
-        <AccountSvg className="h-5 w-5 text-gray-900" />
-        <p>Made by</p>
+    <div className="owner my-4 space-y-2 font-semibold ">
+      <div className="flex items-center text-gray-400">
+        <AccountSvg className="h-3 w-3 fill-gray-400" />
+        <p className="ml-2 font-poppins text-2xs ">Made by</p>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center">
         <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt="Profile Picture" />
-        <div className="flex flex-col">
-          <p className="text-xs font-bold">Xanthe Neal</p>
-          <p className="text-[10px]">on 4 July, 2020</p>
+        <div className="ml-2 flex flex-col">
+          <p className="font-poppins  text-xs text-neutral-800 ">Xanthe Neal</p>
+          <p className="text text-2xs text-gray-400">on 4 July, 2020</p>
         </div>
       </div>
     </div>

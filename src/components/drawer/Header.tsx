@@ -4,7 +4,7 @@ import { CloseSvg } from "../svg";
 export default function Header({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
   return (
     <div className="flex items-center justify-between">
-      <p>Devchallenges Board</p>
+      <p className="font-poppins text-xs font-semibold text-neutral-800">Devchallenges Board</p>
       <button
         onClick={() => {
           setIsOpen(false);

@@ -6,6 +6,9 @@ const config = {
       fontFamily: {
         poppins: "Poppins"
       },
+      fontSize: {
+        "2xs": "10px"
+      },
       animation: {
         "fade-in": "fadein 200ms ease-in forwards",
         "fade-out": "fadeout 200ms ease-in forwards",

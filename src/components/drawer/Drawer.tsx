@@ -22,8 +22,7 @@ export default function Drawer({ setIsOpen }: { setIsOpen: (isOpen: boolean) => 
   return (
     <aside className="  bg-white p-5" ref={drawerRef}>
       <Header setIsOpen={setIsOpen} />
-      {/* <Divider /> */}
-      <hr className="my-2 h-[1px] bg-gray-200"></hr>
+      <hr className="my-1 h-[1.5px] bg-gray-100"></hr>
       <Owner />
       <Description />
       <Team />
