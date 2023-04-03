@@ -5,7 +5,7 @@ import ProfilePic from "../../../public/profilepic.jpg";
 import { Animate, Button, Collapsible } from "../commons";
 import { LockSvg, MoreHorizSvg } from "../svg";
 import VisibilityCard from "./VisibilityCard";
-import Drawer from "../Drawer";
+import { Drawer } from "../drawer";
 import { useState } from "react";
 
 const users = [{ name: "A" }, { name: "B" }, { name: "C" }];
@@ -36,10 +36,14 @@ const Menu = () => {
         <MoreHorizSvg className="h-6 w-6" />
         Show Menu
       </Button>
-      <Animate isMounted={isOpen} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>
-        <div tabIndex={-1} className="absolute">
-          <Drawer setIsOpen={setIsOpen} />
-        </div>
+      <Animate
+        className="scroll-hidden fixed top-0 right-0 z-50 h-full w-80 overflow-y-scroll shadow-lg "
+        isMounted={isOpen}
+        animationIn=" animate-slide-in"
+        animationOut=" animate-slide-out"
+        delay={200}
+      >
+        <Drawer setIsOpen={setIsOpen} />
       </Animate>
       {/* <Collapsible
         toggler={

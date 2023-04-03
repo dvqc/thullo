@@ -6,15 +6,17 @@ export default function Animate({
   animationIn,
   animationOut,
   delay,
-  children
+  children,
+  className,
 }: {
   isMounted: boolean;
   animationIn: string;
   animationOut: string;
   delay: number;
   children: ReactNode;
+  className?: string;
 }) {
   const shouldRenderChild = useDelayUnmount(isMounted, delay);
 
-  return <>{shouldRenderChild && <div className={`${isMounted ? animationIn : animationOut}`}>{children}</div>}</>;
+  return <>{shouldRenderChild && <div className={`${className} ${isMounted ? animationIn : animationOut}`}>{children}</div>}</>;
 }
