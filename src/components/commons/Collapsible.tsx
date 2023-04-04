@@ -1,4 +1,4 @@
-import { FocusEvent, ReactNode, useRef, useState } from "react";
+import { type FocusEvent, type ReactNode, useRef, useState } from "react";
 import Animate from "./Animate";
 
 export default function Collapsible({

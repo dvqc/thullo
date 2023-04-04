@@ -1,4 +1,7 @@
-import { NextPage } from "next";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { type NextPage } from "next";
 import { AddBoard, BoardCard } from "~/components/boards";
 import { List } from "~/components/lists";
 import boards from "~/data/boards.json";
@@ -43,6 +46,8 @@ const reorder = (lists: any, srcListId: string, destListId: string, srcIndex: nu
   return listsCopy;
 };
 
+import { api } from "~/utils/api";
+
 const Boards: NextPage = () => {
   const [lists, setLists] = useState(listsJson);
   // console.log(lists[0]?.cards.map((card) => card.order));
@@ -63,6 +68,11 @@ const Boards: NextPage = () => {
     setLists(reordered);
   };
   resetServerContext();
+
+  const ctx = api.useContext();
+  const { data, isLoading: postsLoading } = api.board.getAll.useQuery();
+
+  console.log("datta : ", data);
 
   return (
     <main className="my-10 flex flex-col items-center justify-center">

@@ -4,6 +4,7 @@
 
 html {
   font-size: 18px;
+  font-family: "Noto Sans", sans-serif;
 }
 input {
   all: inherit;
@@ -46,4 +47,12 @@ input {
     @apply border-[1px] border-red-500 bg-none fill-red-500 text-red-500 hover:bg-red-500
      hover:fill-white hover:text-white;
   }
+}
+
+.scroll-hidden {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
