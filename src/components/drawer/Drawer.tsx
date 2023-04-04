@@ -6,8 +6,7 @@ import Header from "./Header";
 import Owner from "./Owner";
 import Description from "./Description";
 import Team from "./Team";
-// import Divider from "../commons/Divider";
-// import Head from "next/head";
+
 
 export default function Drawer({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
   const drawerRef = useRef<HTMLElement>(null);

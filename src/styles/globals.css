@@ -6,7 +6,8 @@ html {
   font-size: 18px;
   font-family: "Noto Sans", sans-serif;
 }
-input {
+input,
+textarea {
   all: inherit;
 }
 

@@ -2,9 +2,8 @@
 import Image from "next/image";
 
 import ProfilePic from "../../../public/profilepic.jpg";
-import { Animate, Button, Collapsible } from "../commons";
+import { Animate, Button, Collapsible, VisibilityCard } from "../commons";
 import { LockSvg, MoreHorizSvg } from "../svg";
-import VisibilityCard from "./VisibilityCard";
 import { Drawer } from "../drawer";
 import { useState } from "react";
 
