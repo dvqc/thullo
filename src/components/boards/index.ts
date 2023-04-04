@@ -1,4 +1,4 @@
 import AddBoard from "./AddBoard";
 import BoardCard from "./BoardCard";
-
-export { BoardCard, AddBoard};
+import Invite from "./Invite";
+export { BoardCard, AddBoard, Invite};

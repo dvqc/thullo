@@ -1,5 +1,6 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { Invite } from "~/components/boards";
 import { Menu } from "~/components/menu";
 // import Link from "next/link";
 // import { signIn, signOut, useSession } from "next-auth/react";
@@ -11,7 +12,9 @@ const Home: NextPage = () => {
   return (
     <main className="container mx-auto flex flex-grow flex-col">
       <Menu></Menu>
-      <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5"></div>
+      <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5">
+        <Invite></Invite>
+      </div>
     </main>
   );
 };

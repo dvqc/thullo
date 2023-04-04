@@ -1,5 +1,5 @@
 import { FileSvg, PenSvg } from "../svg";
-import { Button } from "../commons";
+import { Animate, Button } from "../commons";
 import { useState } from "react";
 const initialDescription = `Simple board to start on a project. Each list can hold items (cards) that represent ideas or tasks. 
   There 4 lists here: * Backlog 🤔 : Ideas are created here. Here people can describe the idea following three simple
@@ -14,8 +14,18 @@ export default function Description({}) {
   const [draft, setDraft] = useState(description);
 
   const handleEdit = () => {
-    setDescription(draft);
+    setDraft(description);
     setEditing(!isEditing);
+  };
+
+  const handleSave = () => {
+    setDescription(draft);
+    setEditing(false);
+  };
+
+  const handleCancel = () => {
+    setDraft(description);
+    setEditing(false);
   };
 
   return (
@@ -35,11 +45,23 @@ export default function Description({}) {
             className={`h-fit max-w-xs whitespace-pre-wrap rounded-md text-sm ${
               isEditing ? "border-2 border-gray-200 p-2 outline-none  focus:border-blue-500" : ""
             }`}
-            onBlur={(e) => setDraft(e.target.outerText)}
+            onBlur={(e) => {
+              setDraft(e.target.outerText);
+            }}
             suppressContentEditableWarning={true}
           >
-            {description}
+            {draft}
           </pre>
+          <Animate isMounted={isEditing} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>
+            <div tabIndex={-1} className={`my-2 flex`}>
+              <Button onClick={handleSave} className="bg-green-700 hover:bg-green-600">
+                Save
+              </Button>
+              <Button onClick={handleCancel} btnType="secondary-light" className="ml-2">
+                Cancel
+              </Button>
+            </div>
+          </Animate>
         </div>
       </div>
     </div>
