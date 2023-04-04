@@ -9,9 +9,9 @@ import { Menu } from "~/components/menu";
 const Home: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
   return (
-    <main className="container mx-auto flex flex-col">
+    <main className="container mx-auto flex flex-grow flex-col">
       <Menu></Menu>
-      <div className="m-4 h-screen rounded-xl bg-[#F8F9FD] p-5"></div>
+      <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5"></div>
     </main>
   );
 };

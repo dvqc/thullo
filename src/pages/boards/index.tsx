@@ -1,12 +1,22 @@
-import { NextPage } from "next";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { type NextPage } from "next";
 import { AddBoard, BoardCard } from "~/components/boards";
 import { List } from "~/components/lists";
 import boards from "~/data/boards.json";
 import lists from "~/data/lists.json";
 
+import { api } from "~/utils/api";
+
 const Boards: NextPage = () => {
   // const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const list = lists[0];
+
+  const ctx = api.useContext();
+  const { data, isLoading: postsLoading } = api.board.getAll.useQuery();
+
+  console.log("datta : ", data);
 
   return (
     <>

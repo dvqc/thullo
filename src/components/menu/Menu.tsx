@@ -1,13 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import Image from "next/image";
 
 import ProfilePic from "../../../public/profilepic.jpg";
-import { Button, Collapsible } from "../commons";
-import { LockSvg } from "../svg";
+import { Animate, Button, Collapsible } from "../commons";
+import { LockSvg, MoreHorizSvg } from "../svg";
 import VisibilityCard from "./VisibilityCard";
+import { Drawer } from "../drawer";
+import { useState } from "react";
 
 const users = [{ name: "A" }, { name: "B" }, { name: "C" }];
 
 const Menu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="flex justify-between space-x-4 p-4">
       <div className="flex items-center gap-4">
@@ -27,12 +32,28 @@ const Menu = () => {
           ))}
         </div>
       </div>
-      <Button btnType="secondary-outlined" className="w-32">
-        <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 96 960 960" width="25">
-          <path d="M207.858 624Q188 624 174 609.858q-14-14.141-14-34Q160 556 174.142 542q14.141-14 34-14Q228 528 242 542.142q14 14.141 14 34Q256 596 241.858 610q-14.141 14-34 14Zm272 0Q460 624 446 609.858q-14-14.141-14-34Q432 556 446.142 542q14.141-14 34-14Q500 528 514 542.142q14 14.141 14 34Q528 596 513.858 610q-14.141 14-34 14Zm272 0Q732 624 718 609.858q-14-14.141-14-34Q704 556 718.142 542q14.141-14 34-14Q772 528 786 542.142q14 14.141 14 34Q800 596 785.858 610q-14.141 14-34 14Z" />
-        </svg>
+      <Button btnType="secondary" className="w-32" onClick={() => setIsOpen(true)}>
+        <MoreHorizSvg className="h-6 w-6" />
         Show Menu
       </Button>
+      <Animate
+        className="scroll-hidden fixed top-0 right-0 z-50 h-full w-80 overflow-y-scroll shadow-lg "
+        isMounted={isOpen}
+        animationIn=" animate-slide-in"
+        animationOut=" animate-slide-out"
+        delay={200}
+      >
+        <Drawer setIsOpen={setIsOpen} />
+      </Animate>
+      {/* <Collapsible
+        toggler={
+          <Button btnType="secondary">
+            <MoreHorizSvg className="h-6 w-6" />
+            Show Menu
+          </Button>
+        }
+        content={<Drawer setIsDrawer={() => {}} />}
+      /> */}
     </div>
   );
 };

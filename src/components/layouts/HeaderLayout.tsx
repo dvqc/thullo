@@ -17,7 +17,7 @@ const HeaderLayout = ({ children }: { children: React.ReactNode }) => {
           rel="stylesheet"
         />
       </Head>
-      <div>
+      <div className="flex h-screen flex-col">
         <Header />
         {children}
       </div>

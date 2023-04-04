@@ -6,6 +6,9 @@ const config = {
       fontFamily: {
         poppins: "Poppins"
       },
+      fontSize: {
+        "2xs": "10px"
+      },
       animation: {
         "fade-in": "fadein 200ms ease-in forwards",
         "fade-out": "fadeout 200ms ease-in forwards",
@@ -41,21 +44,21 @@ const config = {
         slidein: {
           "0%": {
             opacity: "0",
-            left: "100%"
+            transform: "translateX(100%)"
           },
           "100%": {
             opacity: "1",
-            left: "0%"
+            transform: "translateX(0%)"
           }
         },
         slideout: {
           "0%": {
             opacity: "1",
-            right: "0%"
+            transform: "translateX(0%)"
           },
           "100%": {
             opacity: "0",
-            right: "50%"
+            transform: "translateX(100%)"
           }
         }
       }
