@@ -6,6 +6,8 @@ import { Animate, Button, Collapsible, VisibilityCard } from "../commons";
 import { LockSvg, MoreHorizSvg } from "../svg";
 import { Drawer } from "../drawer";
 import { useState } from "react";
+import Add from "../svg/Add";
+import { Invite } from "../boards";
 
 const users = [{ name: "A" }, { name: "B" }, { name: "C" }];
 
@@ -26,10 +28,18 @@ const Menu = () => {
           content={<VisibilityCard setIsPrivate={() => {}} />}
         />
 
-        <div className="flex gap-3">
+        <div className="flex space-x-3">
           {users.map((user, index) => (
             <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt={user.name} key={index} />
           ))}
+          <Collapsible
+            toggler={
+              <Button>
+                <Add className="h-4 w-4"></Add>
+              </Button>
+            }
+            content={<Invite></Invite>}
+          />
         </div>
       </div>
       <Button btnType="secondary" className="w-32" onClick={() => setIsOpen(true)}>

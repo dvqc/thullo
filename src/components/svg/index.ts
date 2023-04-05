@@ -11,3 +11,4 @@ export { default as ArrwoDownSvg } from "./ArrowDown";
 export { default as AppsSvg } from "./Apps";
 export { default as MoreHorizSvg } from "./MoreHoriz";
 export { default as LogoSvg } from "./Logo";
+export { default as SearchSvg } from "./Search";

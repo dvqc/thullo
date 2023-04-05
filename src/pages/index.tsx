@@ -12,9 +12,7 @@ const Home: NextPage = () => {
   return (
     <main className="container mx-auto flex flex-grow flex-col">
       <Menu></Menu>
-      <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5">
-        <Invite></Invite>
-      </div>
+      <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5"></div>
     </main>
   );
 };

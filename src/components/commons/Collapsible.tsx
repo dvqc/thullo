@@ -18,8 +18,8 @@ export default function Collapsible({
   };
 
   const handleBlur = (e: FocusEvent) => {
-    // && !collapsibleRef.current.contains(e.relatedTarget)
-    if (!e.relatedTarget || collapsibleRef.current) setCollapsed(true);
+    if (!e.relatedTarget || (collapsibleRef.current && !collapsibleRef.current.contains(e.relatedTarget)))
+      setCollapsed(true);
   };
   return (
     <div className="relative" ref={collapsibleRef} onBlur={handleBlur}>

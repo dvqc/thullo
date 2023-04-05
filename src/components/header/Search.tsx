@@ -1,13 +1,13 @@
-import React from "react";
-import { Button } from "../commons";
+import { useState } from "react";
+import { InputGroup } from "../commons";
 
 const Search = ({}) => {
+  const [keyword, setKeyword] = useState("");
   return (
     <div className="w-80 max-w-full">
-      <div className="relative z-0 flex w-full items-center">
-        <Button className="absolute top-0 right-0 z-10">Search</Button>
-        <input type="text" className="input border-transparent  " placeholder="Keyword..." required />
-      </div>
+      <InputGroup placeholder="Keyword..." value={keyword} setValue={setKeyword} onBtnClick={() => {}}>
+        Search
+      </InputGroup>
     </div>
   );
 };

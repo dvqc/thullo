@@ -1,8 +1,9 @@
-import Button from "./Button";
-import Members from "./Members";
-import Collapsible from "./Collapsible";
-import Animate from "./Animate";
-import VisibilityCard from "./VisibilityCard";
-import { StrictModeDroppable } from "./StrictModeDroppable";
+export {default as Button} from "./Button";
+export {default as Members} from "./Members";
+export {default as Collapsible} from "./Collapsible";
+export {default as Animate} from "./Animate";
+export {default as VisibilityCard} from "./VisibilityCard";
+export {default as StrictModeDroppable} from "./StrictModeDroppable";
+export {default as InputGroup} from "./InputGroup";
+export {default as UserImage} from "./UserImage";
 
-export { Button, Members, Collapsible, Animate, VisibilityCard, StrictModeDroppable };

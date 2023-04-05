@@ -8,7 +8,7 @@ html {
 }
 input,
 textarea {
-  all: inherit;
+  all: unset;
 }
 
 *.unselectable {
@@ -21,12 +21,12 @@ textarea {
 
 @layer components {
   .input {
-    @apply flex h-8 items-center  rounded-lg border-[1px] border-gray-400 px-4 
-    text-sm text-black shadow-lg duration-200 focus:border-[1px] focus:border-blue-500;
+    @apply flex h-8 w-full items-center rounded-lg  border-1 border-solid border-gray-400 px-4 
+    text-sm text-black shadow-lg duration-200 focus:border-blue-500;
   }
   .btn {
-    @apply flex h-8 cursor-pointer items-center  justify-center gap-2 rounded-lg py-3 
-    px-2 text-xs  font-medium duration-300;
+    @apply flex h-8 cursor-pointer items-center  justify-center gap-2 rounded-lg border-1  border-solid
+     border-transparent py-4 px-2 text-xs  font-medium duration-300;
   }
   .primary {
     @apply bg-blue-500 fill-white text-white hover:bg-blue-400;
@@ -41,11 +41,11 @@ textarea {
     @apply bg-none fill-gray-400  text-gray-400 hover:bg-gray-100;
   }
   .secondary-outlined {
-    @apply border-[1px] border-gray-400 bg-none fill-gray-400  text-gray-400 hover:bg-gray-400
+    @apply border-1 border-gray-400 bg-none fill-gray-400  text-gray-400 hover:bg-gray-400
      hover:fill-white hover:text-white;
   }
   .danger-outlined {
-    @apply border-[1px] border-red-500 bg-none fill-red-500 text-red-500 hover:bg-red-500
+    @apply border-1 border-red-500 bg-none fill-red-500 text-red-500 hover:bg-red-500
      hover:fill-white hover:text-white;
   }
 }
