@@ -32,7 +32,7 @@ function ListCard({ card, index }: { card: any; index: number }) {
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <Members members={card.members}></Members>
-              <Button className="h-7 w-7">
+              <Button className="h-7 w-7 p-0">
                 <AddSvg className="h-4 w-4"></AddSvg>
               </Button>
             </div>

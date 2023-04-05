@@ -17,7 +17,7 @@ const config = {
         "fade-out": "fadeout 200ms ease-in forwards",
         "slide-in": "slidein 200ms ease-in forwards",
         "slide-out": "slideout 200ms ease-in forwards",
-        "slide-up": "slideup 200ms ease-out",
+        "slide-up": "slideup 200ms ease-out 200ms forwards",
         glide: "glideKF 2s ease-in-out infinite alternate"
       },
       keyframes: {
@@ -67,7 +67,6 @@ const config = {
         },
         slideup: {
           "0%": {
-            postion: "abosolute",
             top: "100%"
           },
           "100%": {

@@ -72,8 +72,6 @@ const Boards: NextPage = () => {
   const ctx = api.useContext();
   const { data, isLoading: postsLoading } = api.board.getAll.useQuery();
 
-  console.log("datta : ", data);
-
   return (
     <main className="my-10 flex flex-col items-center justify-center">
       <h2>boards</h2>

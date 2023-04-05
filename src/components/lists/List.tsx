@@ -1,4 +1,3 @@
-import { Droppable } from "react-beautiful-dnd";
 import { Animate, Button, StrictModeDroppable } from "../commons";
 import { AddSvg } from "../svg";
 import ListCard from "./ListCard";
@@ -6,9 +5,33 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 function List({ list }: { list: any }) {
+  const [isAdding, setIsAdding] = useState(false);
+  const [cardsList, setCardsList] = useState(list);
+  const [newCardTitle, setNewCardTitle] = useState("");
   const cards = JSON.parse(JSON.stringify(list.cards));
   const orderedCards = cards.sort((a: any, b: any) => a.order - b.order);
-  const [isAdding, setIsAdding] = useState(false);
+
+  const handleAddCard = () => {
+    setIsAdding(!isAdding);
+    setNewCardTitle("");
+  };
+
+  const handleSave = () => {
+    // const newCard = {
+    //   id: Math.round(Math.random() * 1000),
+    //   title: newCardTitle,
+    //   cover: "",
+    //   description: "",
+    //   members: [],
+    //   labels: [],
+    //   attachments: [],
+    //   comments: [],
+    //   order: orderedCards.at(-1).order + 1
+    // };
+    // setNewCardTitle("");
+    // setIsAdding(false);
+    // setCardsList({ ...cardsList, cards: [...cardsList.cards, newCard] });
+  };
 
   return (
     <StrictModeDroppable direction="vertical" droppableId={String(list.id)}>
@@ -37,15 +60,19 @@ function List({ list }: { list: any }) {
                   cols={22}
                   placeholder="Enter a title for this card..."
                   className="scroll-hidden p-1"
+                  value={newCardTitle}
+                  onChange={(e) => setNewCardTitle(e.target.value)}
                 ></textarea>
-                <Button className="mt-1 bg-green-700 hover:bg-green-600">Save</Button>
+                <Button onClick={handleSave} className="mt-1 bg-green-700 hover:bg-green-600">
+                  Save
+                </Button>
               </div>
             </Animate>
 
             <Button
-              onClick={() => setIsAdding(!isAdding)}
+              onClick={handleAddCard}
               btnType="primary-light"
-              className={`w-full justify-between ${!isAdding && "animate-slide-up"}`}
+              className={`absolute w-full justify-between ${!isAdding && "animate-slide-up "}`}
             >
               Add another card <AddSvg className="h-4 w-4"></AddSvg>
             </Button>
