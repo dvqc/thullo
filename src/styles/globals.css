@@ -9,6 +9,10 @@ html {
 input,
 textarea {
   all: unset;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 *.unselectable {
@@ -21,8 +25,8 @@ textarea {
 
 @layer components {
   .input {
-    @apply flex h-8 w-full items-center rounded-lg  border-1 border-solid border-gray-400 px-4 
-    text-sm text-black shadow-lg duration-200 focus:border-blue-500;
+    @apply flex h-8 w-full items-center rounded-lg  border-1 border-solid border-gray-400 px-2 py-4
+    text-xs text-black shadow-lg duration-200 focus:border-blue-500;
   }
   .btn {
     @apply flex h-8 cursor-pointer items-center  justify-center gap-2 rounded-lg border-1  border-solid

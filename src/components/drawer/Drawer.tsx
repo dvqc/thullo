@@ -11,7 +11,6 @@ export default function Drawer({ setIsOpen }: { setIsOpen: (isOpen: boolean) => 
   const drawerRef = useRef<HTMLElement>(null);
 
   const handleBlur = (e: MouseEvent) => {
-    console.log(drawerRef.current);
     if (!e.target || (drawerRef.current && !drawerRef.current.contains(e.target as Node))) setIsOpen(false);
   };
 

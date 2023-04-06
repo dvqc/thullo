@@ -29,7 +29,7 @@ export default function AddBoard({}) {
           src={`${coverImg ? URL.createObjectURL(coverImg) : "/ceo.jpeg"}`}
           alt=""
         />
-        <div className="my-3 w-full">
+        <div className="my-3">
           <input
             name="title"
             type={"text"}

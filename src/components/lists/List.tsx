@@ -1,8 +1,9 @@
 import { Animate, Button, StrictModeDroppable } from "../commons";
-import { AddSvg } from "../svg";
+import { AddSvg, MoreHorizSvg } from "../svg";
 import ListCard from "./ListCard";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import ListHeader from "./ListHeader";
 
 function List({ list }: { list: any }) {
   const [isAdding, setIsAdding] = useState(false);
@@ -41,10 +42,7 @@ function List({ list }: { list: any }) {
           ref={provided.innerRef}
           className={`w-60 ${snapshot.isDraggingOver ? "" : ""}`}
         >
-          <div className="my-4 flex items-center justify-between">
-            <h2 className="text-sm font-medium text-black"> {list.name}</h2>
-            <p>...</p>
-          </div>
+          <ListHeader listName={list.name}></ListHeader>
           <ul className="flex flex-col gap-6">
             {orderedCards.map((card: any, i: number) => (
               <ListCard card={card} key={card.id} index={i}></ListCard>

@@ -16,10 +16,12 @@ export default function InputGroup({
 }) {
   return (
     <div className="relative z-0 flex w-full items-center">
-      <Button className="absolute top-0 right-0 z-10" onClick={onBtnClick}>{children}</Button>
+      <Button className="absolute top-0 right-0 z-10 h-full py-0" onClick={onBtnClick}>
+        {children}
+      </Button>
       <input
         type="text"
-        className="input border-transparent"
+        className="input cursor-text border-transparent "
         placeholder={placeholder}
         value={value}
         onChange={(e) => setValue(e.target.value)}
