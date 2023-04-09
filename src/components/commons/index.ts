@@ -7,3 +7,4 @@ export { default as StrictModeDroppable } from "./StrictModeDroppable";
 export { default as InputGroup } from "./InputGroup";
 export { default as UserImage } from "./UserImage";
 export { default as DescriptionEditable } from "./DescriptionEditable";
+export { default as Modal } from "./Modal";

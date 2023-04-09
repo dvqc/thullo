@@ -35,7 +35,7 @@ export default function DescriptionEditable({ initialDescription }: { initialDes
       <div className={`my-3`}>
         <pre
           contentEditable={isEditing}
-          className={`h-fit max-w-xs whitespace-pre-wrap rounded-md text-sm ${
+          className={`h-fit w-full whitespace-pre-wrap rounded-md text-sm ${
             isEditing ? "border-2 border-gray-200 p-2 outline-none  focus:border-blue-500" : ""
           }`}
           onBlur={(e) => {
@@ -45,16 +45,23 @@ export default function DescriptionEditable({ initialDescription }: { initialDes
         >
           {draft}
         </pre>
-        <Animate isMounted={isEditing} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>
-          <div tabIndex={-1} className={`my-2 flex`}>
+
+        <div tabIndex={-1} className={`my-2 flex h-8`}>
+          <Animate
+            className="flex"
+            isMounted={isEditing}
+            animationIn="animate-fade-in"
+            animationOut="animate-fade-out"
+            delay={400}
+          >
             <Button onClick={handleSave} className="bg-green-700 hover:bg-green-600">
               Save
             </Button>
             <Button onClick={handleCancel} btnType="secondary-light" className="ml-2">
               Cancel
             </Button>
-          </div>
-        </Animate>
+          </Animate>
+        </div>
       </div>
     </div>
   );

@@ -6,8 +6,12 @@ import { AddBoard, BoardCard } from "~/components/boards";
 import { List } from "~/components/lists";
 import boards from "~/data/boards.json";
 import listsJson from "~/data/lists.json";
+import cards from "~/data/cards.json";
 import { DragDropContext, Droppable, DropResult, resetServerContext } from "react-beautiful-dnd";
 import { useState } from "react";
+import { CardView } from "~/components/cards";
+import { api } from "~/utils/api";
+import { Modal } from "~/components/commons";
 
 const reorder = (lists: any, srcListId: string, destListId: string, srcIndex: number, destIndex: number) => {
   // if same list & same position: do nothing
@@ -46,8 +50,6 @@ const reorder = (lists: any, srcListId: string, destListId: string, srcIndex: nu
   return listsCopy;
 };
 
-import { api } from "~/utils/api";
-
 const Boards: NextPage = () => {
   const [lists, setLists] = useState(listsJson);
   // console.log(lists[0]?.cards.map((card) => card.order));
@@ -72,6 +74,11 @@ const Boards: NextPage = () => {
   const ctx = api.useContext();
   const { data, isLoading: postsLoading } = api.board.getAll.useQuery();
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   return (
     <main className="my-10 flex flex-col items-center justify-center">
       <h2>boards</h2>
@@ -92,6 +99,10 @@ const Boards: NextPage = () => {
           {lists.map((list: any) => list && <List list={list} key={list.id}></List>)}
         </DragDropContext>
       </section>
+      <button onClick={openModal}>open modal</button>
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        <CardView card={cards[0]}></CardView>
+      </Modal>
     </main>
   );
 };

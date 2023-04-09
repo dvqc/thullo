@@ -1,18 +1,18 @@
-import { Button, DescriptionEditable } from "../commons";
-import { CloseSvg } from "../svg";
+import { DescriptionEditable } from "../commons";
+import { FileSvg } from "../svg";
 import Image from "next/image";
+import Attachment from "./Attachment";
+import WriteComment from "./WriteComment";
+import Comment from "./Comment";
 
 export default function CardView({ card }: { card: any }) {
   return (
-    <dialog
-      className="absolute  top-1/2 left-1/2 max-w-2xl -translate-x-1/2 -translate-y-1/2 rounded-lg 
-    bg-white px-6 py-5 shadow-lg"
-    >
+    <div className="w-screen max-w-2xl ">
       <Image
         width={616}
         height={130}
-        className="w-full rounded-xl object-cover"
-        src={card.image}
+        className="h-36 w-full rounded-xl object-cover"
+        src={card.cover}
         alt={"Card cover"}
       ></Image>
 
@@ -20,19 +20,36 @@ export default function CardView({ card }: { card: any }) {
         <section className="max-w-md">
           <div className="my-6">
             <h2>{card.title}</h2>
-            <p>
-              In list <span>In Progress</span>
+            <p className="font-poppins text-2xs font-semibold text-gray-400">
+              In list <span className="text-neutral-800">In Progress</span>
             </p>
           </div>
-          <article className="my-6">
+          <div className="my-6">
             <DescriptionEditable initialDescription={card.description}></DescriptionEditable>
+          </div>
+          <article className="my-6">
+            <div className="flex items-center space-x-2 fill-gray-400 text-gray-400">
+              <FileSvg className="h-4 w-4" />
+              <p className="font-poppins text-2xs font-semibold ">Attachments</p>
+            </div>
+
+            <div className="space-y-2 py-2">
+              <Attachment></Attachment>
+              <Attachment></Attachment>
+            </div>
+
+            <div className="my-6">
+              <WriteComment></WriteComment>
+            </div>
+
+            <div>
+              <Comment></Comment>
+              <Comment></Comment>
+            </div>
           </article>
         </section>
         <div></div>
       </section>
-      <Button className="absolute top-3 right-3 h-8 w-8">
-        <CloseSvg className="h-5 w-5 fill-white"></CloseSvg>
-      </Button>
-    </dialog>
+    </div>
   );
 }

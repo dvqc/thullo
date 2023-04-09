@@ -1,6 +1,4 @@
 import { type NextPage } from "next";
-import Head from "next/head";
-import { Invite } from "~/components/boards";
 import { Menu } from "~/components/menu";
 // import Link from "next/link";
 // import { signIn, signOut, useSession } from "next-auth/react";
