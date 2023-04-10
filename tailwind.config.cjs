@@ -17,7 +17,9 @@ const config = {
         "fade-out": "fadeout 200ms ease-in forwards",
         "slide-in": "slidein 200ms ease-in forwards",
         "slide-out": "slideout 200ms ease-in forwards",
-        "slide-up": "slideup 200ms ease-out 200ms forwards",
+        "slide-up": "slideup 200ms ease-out  forwards",
+        "bounce-up": "bounceUp 200ms ease-out forwards",
+        "bounce-down": "bounceDown 200ms ease-out forwards",
         glide: "glideKF 2s ease-in-out infinite alternate"
       },
       keyframes: {
@@ -71,6 +73,22 @@ const config = {
           },
           "100%": {
             top: "0%"
+          }
+        },
+        bounceUp: {
+          "0%": {
+            transform: "translateY(0%)"
+          },
+          "100%": {
+            transform: "translateY(-20%)"
+          }
+        },
+        bounceDown: {
+          "0%": {
+            transform: "translateY(-20%)"
+          },
+          "100%": {
+            transform: "translateY(0%)"
           }
         }
       }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { CloseSvg } from "../svg";
+import Animate from "./Animate";
 import Button from "./Button";
 
 const Modal = ({
@@ -18,31 +19,38 @@ const Modal = ({
 
   useEffect(() => {
     setIsClosing(false);
+    if (!isOpen) {
+      handleClose();
+    }
   }, [isOpen]);
 
   const handleClose = () => {
     setIsClosing(true);
-    setTimeout(onClose, 300);
+    onClose();
   };
 
-  if (!isOpen) return null;
+  // if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div
-      className={`scroll-hidden pointer-events-none fixed inset-0 z-50 overflow-y-scroll bg-black bg-opacity-50 
-      ${isClosing ? "animate-fade-out " : "pointer-events-auto animate-fade-in "}`}
+    <Animate
+      isMounted={isOpen}
+      delay={200}
+      animationIn="animate-fade-in"
+      animationOut="animate-fade-out"
+      className={` scroll-hidden pointer-events-none fixed inset-0 z-50 flex justify-center overflow-y-scroll bg-black bg-opacity-50 py-40
+      ${isClosing ? "" : "pointer-events-auto"}`}
     >
       <div
-        className={`relative left-1/2 my-24 w-fit -translate-x-1/2  rounded-lg bg-white px-6 py-5 shadow-lg
-        transition-transform duration-100 ease-in-out ${className}
-        ${isClosing ? "translate-y-4" : "-translate-y-4"}`}
+        className={`relative top-1/3 h-fit  max-w-fit rounded-lg bg-white px-6 py-5 shadow-lg
+        ${className} 
+        ${isClosing ? "animate-bounce-down" : "animate-bounce-up"}`}
       >
         {children}
         <Button onClick={handleClose} className="absolute top-3 right-3 h-8 w-8">
           <CloseSvg className="h-5 w-5 fill-white"></CloseSvg>
         </Button>
       </div>
-    </div>,
+    </Animate>,
     document.body
   );
 };

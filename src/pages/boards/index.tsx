@@ -11,7 +11,7 @@ import { DragDropContext, Droppable, DropResult, resetServerContext } from "reac
 import { useState } from "react";
 import { CardView } from "~/components/cards";
 import { api } from "~/utils/api";
-import { Modal } from "~/components/commons";
+import { Button, Modal } from "~/components/commons";
 
 const reorder = (lists: any, srcListId: string, destListId: string, srcIndex: number, destIndex: number) => {
   // if same list & same position: do nothing
@@ -91,16 +91,16 @@ const Boards: NextPage = () => {
             members={[board.createdBy, ...board.members]}
           ></BoardCard>
         ))}
-        <AddBoard></AddBoard>
       </section>
+      <Button onClick={openModal}>open modal</Button>
       <h2>lists</h2>
       <section className="my-10 flex flex-wrap gap-10">
         <DragDropContext onDragEnd={onDragEnd}>
           {lists.map((list: any) => list && <List list={list} key={list.id}></List>)}
         </DragDropContext>
       </section>
-      <button onClick={openModal}>open modal</button>
       <Modal isOpen={isOpen} onClose={closeModal}>
+        {/* <AddBoard onCancel={closeModal}></AddBoard> */}
         <CardView card={cards[0]}></CardView>
       </Modal>
     </main>

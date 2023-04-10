@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Button, Collapsible, VisibilityCard } from "../commons";
 import { AddSvg, CloseSvg, ImageSvg, LockSvg, PublicSvg } from "../svg";
 
-export default function AddBoard({}) {
+export default function AddBoard({ onCancel }: { onCancel: () => void }) {
   const [title, setTitle] = useState("");
   const [isPrivate, setPrivate] = useState(false);
   const [coverImg, setCoverImg] = useState<File>();
@@ -16,13 +16,14 @@ export default function AddBoard({}) {
 
   const handleCancel = (e: FormEvent) => {
     e.preventDefault();
+    onCancel();
   };
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
   };
 
   return (
-    <article className="relative w-[310px] rounded-lg px-5 py-5 shadow-xl">
+    <article className="w-[310px]">
       <form onSubmit={handleSubmit}>
         <img
           className="h-20 w-full rounded-lg object-cover"
@@ -91,9 +92,6 @@ export default function AddBoard({}) {
           </Button>
         </div>
       </form>
-      <Button className="absolute top-3 right-3 h-8 w-8">
-        <CloseSvg className="h-5 w-5 fill-white"></CloseSvg>
-      </Button>
     </article>
   );
 }
