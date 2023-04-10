@@ -22,8 +22,8 @@ export default function Collapsible({
       setCollapsed(true);
   };
   return (
-    <div className="relative" ref={collapsibleRef} onBlur={handleBlur}>
-      <div tabIndex={-1} onClick={handleToggle}>
+    <div className="relative z-0 h-fit" ref={collapsibleRef} onBlur={handleBlur}>
+      <div className="" tabIndex={-1} onClick={handleToggle}>
         {toggler}
       </div>
       <Animate isMounted={!collapsed} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>

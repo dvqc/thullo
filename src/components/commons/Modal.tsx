@@ -29,7 +29,7 @@ const Modal = ({
     onClose();
   };
 
-  // if (!isOpen) return null;
+  if (typeof window == "undefined" || !window.document.body) return null;
 
   return ReactDOM.createPortal(
     <Animate
