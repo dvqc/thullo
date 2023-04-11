@@ -8,7 +8,7 @@ import LabelPicker from "./LabelPicker";
 import CoverChooser from "../boards/CoverChooser";
 import { Invite } from "../boards";
 
-export default function CardView({ card }: { card: any }) {
+export default function TaskView({ card }: { card: any }) {
   return (
     <div className="w-screen max-w-2xl ">
       <Image

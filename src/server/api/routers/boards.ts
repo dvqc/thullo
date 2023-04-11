@@ -5,7 +5,6 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
-import { content } from "tailwind.config.cjs";
 
 const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -25,6 +24,17 @@ export const boardRouter = createTRPCRouter({
     return board;
   }),
 
+  getOwn: protectedProcedure.query(({ ctx }) => {
+    const userId = ctx.session.user.id;
+    return ctx.prisma.board.findMany({
+      where: {
+        userId: {
+          equals: userId
+        }
+      }
+    });
+  }),
+
   create: protectedProcedure
     .input(
       z.object({
@@ -41,10 +51,11 @@ export const boardRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      // const authorId = ctx.userId;
+      const authorId = ctx.session.user.id;
       const board = await ctx.prisma.board.create({
         data: {
-          // userId: authorId,
+          ...input,
+          userId: authorId
         }
       });
 
