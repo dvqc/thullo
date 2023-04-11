@@ -3,10 +3,9 @@ import Image from "next/image";
 
 import ProfilePic from "../../../public/profilepic.jpg";
 import { Animate, Button, Collapsible, VisibilityCard } from "../commons";
-import { LockSvg, MoreHorizSvg } from "../svg";
+import { AddSvg, LockSvg, MoreHorizSvg } from "../svg";
 import { Drawer } from "../drawer";
 import { useState } from "react";
-import Add from "../svg/Add";
 import { Invite } from "../boards";
 
 const users = [{ name: "A" }, { name: "B" }, { name: "C" }];
@@ -35,7 +34,7 @@ const Menu = () => {
           <Collapsible
             toggler={
               <Button>
-                <Add className="h-4 w-4"></Add>
+                <AddSvg className="h-4 w-4"></AddSvg>
               </Button>
             }
             content={<Invite></Invite>}

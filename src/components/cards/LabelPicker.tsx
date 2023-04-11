@@ -19,6 +19,7 @@ export default function LabelPicker() {
     "BDBDBD",
     "BDBDBD"
   ];
+
   return (
     <article className="w-60 cursor-default rounded-xl border-1 border-gray-200 bg-white p-3 shadow-md">
       <h4 className="font-pop my-1 text-xs font-semibold text-neutral-800">Add a label</h4>
@@ -37,7 +38,9 @@ export default function LabelPicker() {
             color={`#${color}`}
             key={i}
             isSelected={i === selectedColor}
-            onClick={() => setSelectedColor(i)}
+            onClick={() => {
+              setSelectedColor(i);
+            }}
           ></ColorButton>
         ))}
       </div>

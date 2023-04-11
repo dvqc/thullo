@@ -22,19 +22,20 @@ export default function Collapsible({
       setCollapsed(true);
   };
   return (
-    <div className="relative z-0 h-fit" ref={collapsibleRef} onBlur={handleBlur}>
+    <div className="relative h-fit" ref={collapsibleRef} onBlur={handleBlur}>
       <div className="" tabIndex={-1} onClick={handleToggle}>
         {toggler}
       </div>
-      <Animate isMounted={!collapsed} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>
-        <div
-          tabIndex={-1}
-          className={`absolute translate-y-2 ${
-            justify === "right" ? "right-0" : justify === "left" ? "left-0" : "left-1/2 -translate-x-1/2"
-          } `}
-        >
-          {content}
-        </div>
+      <Animate
+        isMounted={!collapsed}
+        animationIn="animate-fade-in"
+        animationOut="animate-fade-out"
+        delay={400}
+        className={`absolute z-50 translate-y-2 ${
+          justify === "right" ? "right-0" : justify === "left" ? "left-0" : "left-1/2 -translate-x-1/2"
+        } `}
+      >
+        {content}
       </Animate>
     </div>
   );

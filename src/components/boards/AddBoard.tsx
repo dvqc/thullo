@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Button, Collapsible, VisibilityCard } from "../commons";
 import { AddSvg, CloseSvg, ImageSvg, LockSvg, PublicSvg } from "../svg";
+import CoverChooser from "./CoverChooser";
 
 export default function AddBoard({ onCancel }: { onCancel: () => void }) {
   const [title, setTitle] = useState("");
@@ -10,7 +11,6 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
   const handleCheckPrivate = () => setPrivate(!isPrivate);
   const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const handleCover = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target);
     if (e.target.files) setCoverImg(e.target.files[0]);
   };
 
@@ -41,13 +41,7 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
           ></input>
         </div>
         <div className="my-4 flex justify-between">
-          <label htmlFor="cover" className="btn secondary relative">
-            <span className="h-4">
-              <ImageSvg></ImageSvg>
-            </span>
-            Cover
-            <input type={"file"} id="cover" className="absolute -z-50 w-1  opacity-0" onChange={handleCover}></input>
-          </label>
+         <CoverChooser handleCover={handleCover}></CoverChooser>
           <Collapsible
             toggler={
               <Button btnType="secondary" className="w-20">

@@ -7,7 +7,7 @@ export default function Animate({
   animationOut,
   delay,
   children,
-  className,
+  className
 }: {
   isMounted: boolean;
   animationIn: string;
@@ -18,5 +18,13 @@ export default function Animate({
 }) {
   const shouldRenderChild = useDelayUnmount(isMounted, delay);
 
-  return <>{shouldRenderChild && <div className={`${className} ${isMounted ? animationIn : animationOut}`}>{children}</div>}</>;
+  return (
+    <>
+      {shouldRenderChild && (
+        <div tabIndex={-1} className={`${className} ${isMounted ? animationIn : animationOut}`}>
+          {children}
+        </div>
+      )}
+    </>
+  );
 }
