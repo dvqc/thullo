@@ -43,15 +43,16 @@ export const boardRouter = createTRPCRouter({
     .input(
       z.object({
         title: z.string(),
-        description: z.string(),
-        isPrivate: z.boolean(),
-        picture: z
-          .any()
-          .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
-          .refine(
-            (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-            "Only .jpg, .jpeg, .png and .webp formats are supported."
-          )
+        description: z.string().optional(),
+        isPrivate: z.boolean().optional(),
+        picture: z.string().optional()
+        // .any()
+        // .refine((files) => files?.[0]?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+        // .refine(
+        //   (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+        //   "Only .jpg, .jpeg, .png and .webp formats are supported."
+        // )
+        // .optional()
       })
     )
     .mutation(async ({ ctx, input }) => {

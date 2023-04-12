@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { api } from "~/utils/api";
 import { Button, Collapsible, VisibilityCard } from "../commons";
-import { AddSvg, CloseSvg, ImageSvg, LockSvg, PublicSvg } from "../svg";
+import { AddSvg, LockSvg, PublicSvg } from "../svg";
 import CoverChooser from "./CoverChooser";
 
 export default function AddBoard({ onCancel }: { onCancel: () => void }) {
@@ -8,7 +9,8 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
   const [isPrivate, setPrivate] = useState(false);
   const [coverImg, setCoverImg] = useState<File>();
 
-  const handleCheckPrivate = () => setPrivate(!isPrivate);
+  const createBoardMutation = api.board.create.useMutation();
+
   const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const handleCover = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) setCoverImg(e.target.files[0]);
@@ -20,6 +22,11 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
   };
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    createBoardMutation.mutate({
+      title,
+      isPrivate
+    });
+    onCancel();
   };
 
   return (
@@ -41,7 +48,7 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
           ></input>
         </div>
         <div className="my-4 flex justify-between">
-         <CoverChooser handleCover={handleCover}></CoverChooser>
+          <CoverChooser handleCover={handleCover}></CoverChooser>
           <Collapsible
             toggler={
               <Button btnType="secondary" className="w-20">
@@ -60,19 +67,6 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
             }
             content={<VisibilityCard setIsPrivate={setPrivate} />}
           />
-          {/* <label htmlFor="private" className={`btn ${!isPrivate ? "secondary" : "primary"}`}>
-            <span className="h-4">
-              <LockSvg></LockSvg>
-            </span>
-            Private
-            <input
-              id="private"
-              type={"checkbox"}
-              checked={isPrivate}
-              className="hidden"
-              onChange={handleCheckPrivate}
-            ></input>
-          </label> */}
         </div>
         <div className="flex justify-end gap-3">
           <Button btnType="secondary-light" onClick={handleCancel}>

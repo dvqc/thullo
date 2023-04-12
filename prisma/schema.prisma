@@ -99,13 +99,13 @@ model List {
 }
 
 model Board {
-  id          String  @id @default(cuid())
+  id          String   @id @default(cuid())
   userId      String
   title       String
-  description String
-  isPrivate   Boolean
+  description String?
+  isPrivate   Boolean? @default(false)
   picture     String?
-  owner       User    @relation(fields: [userId], references: [id], onDelete: Cascade, name: "owner")
-  team        User[]  @relation(name: "team")
+  owner       User     @relation(fields: [userId], references: [id], onDelete: Cascade, name: "owner")
+  team        User[]   @relation(name: "team")
   Lists       List[]
 }
