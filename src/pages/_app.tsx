@@ -6,14 +6,10 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 
-import { HeaderLayout } from "~/components/layouts";
-
 const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps } }) => {
   return (
     <SessionProvider session={session}>
-      <HeaderLayout>
-        <Component {...pageProps} />
-      </HeaderLayout>
+      <Component {...pageProps} />
     </SessionProvider>
   );
 };

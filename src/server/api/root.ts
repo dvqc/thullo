@@ -8,7 +8,6 @@ import { boardRouter } from "~/server/api/routers/boards";
  * All routers added in /api/routers should be manually added here.
  */
 export const appRouter = createTRPCRouter({
-  example: exampleRouter,
   board: boardRouter
 });
 

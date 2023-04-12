@@ -31,6 +31,10 @@ export const boardRouter = createTRPCRouter({
         userId: {
           equals: userId
         }
+      },
+      include: {
+        owner: true,
+        team: true
       }
     });
   }),

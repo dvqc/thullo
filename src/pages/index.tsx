@@ -1,42 +1,73 @@
-import { type NextPage } from "next";
-import { Menu } from "~/components/menu";
-// import Link from "next/link";
-// import { signIn, signOut, useSession } from "next-auth/react";
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, type NextPage } from "next";
+import { useState } from "react";
+import { AddBoard, BoardCard } from "~/components/boards";
+import { Button, Modal } from "~/components/commons";
+import { HeaderLayout } from "~/components/layouts";
+import { AddSvg } from "~/components/svg";
+import { getServerAuthSession } from "~/server/auth";
+import { prisma } from "~/server/db";
 
-// import { api } from "~/utils/api";
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await getServerAuthSession(ctx);
 
-const Home: NextPage = () => {
-  // const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  if (!session || !session.user)
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false
+      }
+    };
+
+  const userId = session.user.id;
+  const boards = await prisma.board.findMany({
+    where: {
+      userId: {
+        equals: userId
+      }
+    },
+    include: {
+      owner: true,
+      team: true
+    }
+  });
+
+  return {
+    props: { session, boards }
+  };
+};
+
+const Home = ({ boards }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   return (
-    <main className="container mx-auto flex flex-grow flex-col">
-      <Menu></Menu>
-      <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5"></div>
-    </main>
+    <HeaderLayout>
+      <main className="flex w-full flex-grow flex-col bg-slate-50  py-16 px-10 ">
+        <section className="mx-auto w-full max-w-6xl">
+          <div className="flex justify-between">
+            <h2 className="font-poppins text-lg font-medium text-neutral-800">All boards</h2>
+            <Button onClick={openModal}>
+              <AddSvg className="h-4 w-4"></AddSvg> Add
+            </Button>
+          </div>
+          <section className="my-10 flex flex-wrap gap-10">
+            {boards?.map((board) => (
+              <BoardCard
+                key={board.id}
+                title={board.title}
+                img={board.picture ?? ""}
+                members={[board.owner, ...board.team]}
+              ></BoardCard>
+            ))}
+          </section>
+        </section>
+      </main>
+      <Modal isOpen={isOpen} onClose={closeModal}>
+        <AddBoard onCancel={closeModal}></AddBoard>
+      </Modal>
+    </HeaderLayout>
   );
 };
 
 export default Home;
-
-// const AuthShowcase: React.FC = () => {
-//   const { data: sessionData } = useSession();
-
-//   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-//     undefined, // no input
-//     { enabled: sessionData?.user !== undefined }
-//   );
-
-//   return (
-//     <div className="flex flex-col items-center justify-center gap-4">
-//       <p className="text-center text-2xl text-white">
-//         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-//         {secretMessage && <span> - {secretMessage}</span>}
-//       </p>
-//       <button
-//         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-//         onClick={sessionData ? () => void signOut() : () => void signIn()}
-//       >
-//         {sessionData ? "Sign out" : "Sign in"}
-//       </button>
-//     </div>
-//   );
-// };

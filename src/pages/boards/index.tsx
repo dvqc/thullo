@@ -12,6 +12,7 @@ import { useState } from "react";
 import { CardView } from "~/components/cards";
 import { api } from "~/utils/api";
 import { Button, Modal } from "~/components/commons";
+import { Menu } from "~/components/menu";
 
 const reorder = (lists: any, srcListId: string, destListId: string, srcIndex: number, destIndex: number) => {
   // if same list & same position: do nothing
@@ -80,29 +81,32 @@ const Boards: NextPage = () => {
   const closeModal = () => setIsOpen(false);
 
   return (
-    <main className="my-10 flex flex-col items-center justify-center">
-      <h2>boards</h2>
-      <section className="my-10 flex flex-wrap gap-10">
-        {boards.map((board) => (
-          <BoardCard
-            key={board.id}
-            title={board.title}
-            img={board.cover}
-            members={[board.createdBy, ...board.members]}
-          ></BoardCard>
-        ))}
-      </section>
-      <Button onClick={openModal}>open modal</Button>
+    <main className="container mx-auto flex flex-grow flex-col">
+      <Menu></Menu>
+      <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5">
+        <h2>boards</h2>
+        <section className="my-10 flex flex-wrap gap-10">
+          {boards.map((board) => (
+            <BoardCard
+              key={board.id}
+              title={board.title}
+              img={board.cover}
+              members={[board.createdBy, ...board.members]}
+            ></BoardCard>
+          ))}
+        </section>
+        {/* <Button onClick={openModal}>open modal</Button>
       <h2>lists</h2>
       <section className="my-10 flex flex-wrap gap-10">
         <DragDropContext onDragEnd={onDragEnd}>
           {lists.map((list: any) => list && <List list={list} key={list.id}></List>)}
         </DragDropContext>
       </section>
-      <Modal isOpen={isOpen} onClose={closeModal}>
+      <Modal isOpen={isOpen} onClose={closeModal}> */}
         {/* <AddBoard onCancel={closeModal}></AddBoard> */}
-        <CardView card={cards[0]}></CardView>
-      </Modal>
+        {/* <CardView card={cards[0]}></CardView>
+      </Modal> */}
+      </div>
     </main>
   );
 };
