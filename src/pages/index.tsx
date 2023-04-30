@@ -6,6 +6,7 @@ import { HeaderLayout } from "~/components/layouts";
 import { AddSvg } from "~/components/svg";
 import { getServerAuthSession } from "~/server/auth";
 import { prisma } from "~/server/db";
+import { api } from "~/utils/api";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
@@ -13,13 +14,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   if (!session || !session.user)
     return {
       redirect: {
-        destination: "/login",
+        destination: "/api/auth",
         permanent: false
       }
     };
 
   const userId = session.user.id;
-  const boards = await prisma.board.findMany({
+  const boardsData = await prisma.board.findMany({
     where: {
       userId: {
         equals: userId
@@ -32,12 +33,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   });
 
   return {
-    props: { session, boards }
+    props: { session, boardsData }
   };
 };
 
-const Home = ({ boards }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home = ({ boardsData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isOpen, setIsOpen] = useState(false);
+  const boards = boardsData;
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 

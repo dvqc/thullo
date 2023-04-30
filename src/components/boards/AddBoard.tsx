@@ -20,8 +20,7 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
     e.preventDefault();
     onCancel();
   };
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = (e: FormEvent) => {
     createBoardMutation.mutate({
       title,
       isPrivate
@@ -51,7 +50,7 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
           <CoverChooser handleCover={handleCover}></CoverChooser>
           <Collapsible
             toggler={
-              <Button btnType="secondary" className="w-20">
+              <Button btnType="secondary" className="w-20" onClick={(e) => e.preventDefault()}>
                 {!isPrivate ? (
                   <>
                     <PublicSvg className="h-3 w-3" />

@@ -8,7 +8,14 @@ export default function VisibilityCard({ setIsPrivate }: { setIsPrivate: (isPriv
       <p className="text-xs text-gray-400 ">Choose who can see this board.</p>
       <ul className="my-4 flex flex-col gap-3">
         <li>
-          <Button btnType="secondary-light" className="block h-fit w-full p-3" onClick={() => setIsPrivate(false)}>
+          <Button
+            btnType="secondary-light"
+            className="block h-fit w-full p-3"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsPrivate(false);
+            }}
+          >
             <div className=" my-1 flex items-center text-xs font-medium  text-neutral-800">
               <PublicSvg className="mr-2 h-3 w-3 fill-neutral-800"></PublicSvg> Public
             </div>
@@ -16,7 +23,14 @@ export default function VisibilityCard({ setIsPrivate }: { setIsPrivate: (isPriv
           </Button>
         </li>
         <li>
-          <Button btnType="secondary-light" className="block h-fit w-full p-3" onClick={() => setIsPrivate(true)}>
+          <Button
+            btnType="secondary-light"
+            className="block h-fit w-full p-3"
+            onClick={(e) => {
+              e.preventDefault();
+              setIsPrivate(true);
+            }}
+          >
             <div className="my-1 flex items-center text-xs  font-medium text-neutral-800">
               <LockSvg className="mr-2 h-3 w-3 fill-neutral-800"></LockSvg> Private
             </div>
