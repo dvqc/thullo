@@ -11,7 +11,12 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/web
 
 export const boardRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.board.findMany();
+    return ctx.prisma.board.findMany({
+      include: {
+        owner: true,
+        team:  true
+      }
+    });
   }),
 
   getById: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {

@@ -14,7 +14,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   if (!session || !session.user)
     return {
       redirect: {
-        destination: "/api/auth",
+        destination: "/login",
         permanent: false
       }
     };
@@ -39,7 +39,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
 const Home = ({ boardsData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const boards = boardsData;
+  const { data: boards } = api.board.getAll.useQuery(undefined, { initialData: boardsData });
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 

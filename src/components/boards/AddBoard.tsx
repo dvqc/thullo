@@ -5,11 +5,13 @@ import { AddSvg, LockSvg, PublicSvg } from "../svg";
 import CoverChooser from "./CoverChooser";
 
 export default function AddBoard({ onCancel }: { onCancel: () => void }) {
+  const utils = api.useContext();
+
   const [title, setTitle] = useState("");
   const [isPrivate, setPrivate] = useState(false);
   const [coverImg, setCoverImg] = useState<File>();
 
-  const createBoardMutation = api.board.create.useMutation();
+  const createBoardMutation = api.board.create.useMutation({ onSuccess: () => utils.board.getAll.invalidate() });
 
   const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const handleCover = (e: ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +23,7 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
     onCancel();
   };
   const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
     createBoardMutation.mutate({
       title,
       isPrivate
