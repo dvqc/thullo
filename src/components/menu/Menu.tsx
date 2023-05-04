@@ -7,14 +7,13 @@ import { AddSvg, LockSvg, MoreHorizSvg } from "../svg";
 import { Drawer } from "../drawer";
 import { useState } from "react";
 import { Invite } from "../boards";
+import { Member } from "~/types";
 
-const users = [{ name: "A" }, { name: "B" }, { name: "C" }];
-
-const Menu = () => {
+const Menu = ({ members, isPrivate }: { members: Member[]; isPrivate: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex justify-between space-x-4 p-4">
+    <div className="flex w-full justify-between space-x-4 p-4">
       <div className="flex items-center gap-4">
         <Collapsible
           justify="left"
@@ -28,8 +27,8 @@ const Menu = () => {
         />
 
         <div className="flex space-x-3">
-          {users.map((user, index) => (
-            <Image className="h-8 w-8 rounded-lg" src={ProfilePic} alt={user.name} key={index} />
+          {members.map((member, index) => (
+            <Image className="h-8 w-8 rounded-lg" src={member.image ?? ProfilePic} alt={"User avatar"} key={index} />
           ))}
           <Collapsible
             toggler={

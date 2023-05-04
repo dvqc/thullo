@@ -10,18 +10,34 @@ const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 export const boardRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
+  getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.board.findMany({
       include: {
         owner: true,
-        team:  true
+        team:  {
+          select:{
+            id:true,
+            name:true,
+            image: true,
+          }
+        }
       }
     });
   }),
 
-  getById: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+  getById: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
     const board = await ctx.prisma.board.findUnique({
-      where: { id: input.id }
+      where: { id: input.id },
+      include: {
+        owner: true,
+        team:  {
+          select:{
+            id:true,
+            name:true,
+            image: true,
+          }
+        }
+      }
     });
 
     if (!board) throw new TRPCError({ code: "NOT_FOUND" });
@@ -39,7 +55,13 @@ export const boardRouter = createTRPCRouter({
       },
       include: {
         owner: true,
-        team: true
+        team:  {
+          select:{
+            id:true,
+            name:true,
+            image: true,
+          }
+        }
       }
     });
   }),

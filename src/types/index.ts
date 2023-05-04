@@ -1,7 +1,10 @@
-export type members = {
-  id: string;
-  img: string;
-};
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
+import { AppRouter } from "~/server/api/root";
+
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+export type Member = RouterOutput["board"]["getById"]["team"][0];
+
 export type Badge = {
   id: string;
   name: string;

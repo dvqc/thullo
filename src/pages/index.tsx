@@ -1,4 +1,5 @@
 import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType, type NextPage } from "next";
+import Link from "next/link";
 import { useState } from "react";
 import { AddBoard, BoardCard } from "~/components/boards";
 import { Button, Modal } from "~/components/commons";
@@ -55,12 +56,14 @@ const Home = ({ boardsData }: InferGetServerSidePropsType<typeof getServerSidePr
           </div>
           <section className="my-10 flex flex-wrap gap-10">
             {boards?.map((board) => (
-              <BoardCard
-                key={board.id}
-                title={board.title}
-                img={board.picture ?? ""}
-                members={[board.owner, ...board.team]}
-              ></BoardCard>
+              <Link href={"/boards/" + board.id}>
+                <BoardCard
+                  key={board.id}
+                  title={board.title}
+                  img={board.picture ?? ""}
+                  members={[board.owner, ...board.team]}
+                ></BoardCard>
+              </Link>
             ))}
           </section>
         </section>
