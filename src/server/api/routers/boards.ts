@@ -14,27 +14,27 @@ export const boardRouter = createTRPCRouter({
     return ctx.prisma.board.findMany({
       include: {
         owner: true,
-        team:  {
-          select:{
-            id:true,
-            name:true,
-            image: true,
+        team: {
+          select: {
+            id: true,
+            name: true,
+            image: true
           }
         }
       }
     });
   }),
 
-  getById: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+  getById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const board = await ctx.prisma.board.findUnique({
-      where: { id: input.id },
+      where: { id: input },
       include: {
         owner: true,
-        team:  {
-          select:{
-            id:true,
-            name:true,
-            image: true,
+        team: {
+          select: {
+            id: true,
+            name: true,
+            image: true
           }
         }
       }
@@ -55,16 +55,50 @@ export const boardRouter = createTRPCRouter({
       },
       include: {
         owner: true,
-        team:  {
-          select:{
-            id:true,
-            name:true,
-            image: true,
+        team: {
+          select: {
+            id: true,
+            name: true,
+            image: true
           }
         }
       }
     });
   }),
+
+  patch: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        data: z.object({
+          title: z.string().optional(),
+          description: z.string().optional(),
+          isPrivate: z.boolean().optional(),
+          picture: z.string().optional()
+        })
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      let board = await ctx.prisma.board.findUnique({
+        where: {
+          id: input.id
+        }
+      });
+      if (!board) throw new TRPCError({ code: "NOT_FOUND" });
+      if (board.userId != userId) throw new TRPCError({ code: "FORBIDDEN" });
+
+      board = await ctx.prisma.board.update({
+        data: {
+          ...input.data
+        },
+        where: {
+          id: input.id
+        }
+      });
+
+      return board;
+    }),
 
   create: protectedProcedure
     .input(

@@ -3,13 +3,22 @@ import Image from "next/image";
 
 import ProfilePic from "../../../public/profilepic.jpg";
 import { Animate, Button, Collapsible, VisibilityCard } from "../commons";
-import { AddSvg, LockSvg, MoreHorizSvg } from "../svg";
+import { AddSvg, LockSvg, MoreHorizSvg, PublicSvg } from "../svg";
 import { Drawer } from "../drawer";
 import { useState } from "react";
 import { Invite } from "../boards";
 import { Member } from "~/types";
+import { api } from "~/utils/api";
 
-const Menu = ({ members, isPrivate }: { members: Member[]; isPrivate: boolean }) => {
+const Menu = ({
+  members,
+  isPrivate,
+  setPrivate
+}: {
+  members: Member[];
+  isPrivate: boolean;
+  setPrivate: (isPrivate: boolean) => void;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -18,12 +27,21 @@ const Menu = ({ members, isPrivate }: { members: Member[]; isPrivate: boolean })
         <Collapsible
           justify="left"
           toggler={
-            <Button btnType="secondary">
-              <LockSvg className="h-3 w-3" />
-              Private
+            <Button btnType="secondary" className="w-20" onClick={(e) => e.preventDefault()}>
+              {!isPrivate ? (
+                <>
+                  <PublicSvg className="h-3 w-3" />
+                  Public
+                </>
+              ) : (
+                <>
+                  <LockSvg className="h-3 w-3" />
+                  Private
+                </>
+              )}
             </Button>
           }
-          content={<VisibilityCard setIsPrivate={() => {}} />}
+          content={<VisibilityCard setIsPrivate={setPrivate} />}
         />
 
         <div className="flex space-x-3">

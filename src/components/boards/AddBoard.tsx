@@ -11,7 +11,7 @@ export default function AddBoard({ onCancel }: { onCancel: () => void }) {
   const [isPrivate, setPrivate] = useState(false);
   const [coverImg, setCoverImg] = useState<File>();
 
-  const createBoardMutation = api.board.create.useMutation({ onSuccess: () => utils.board.getAll.invalidate() });
+  const createBoardMutation = api.boards.create.useMutation({ onSuccess: () => utils.boards.getAll.invalidate() });
 
   const handleTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const handleCover = (e: ChangeEvent<HTMLInputElement>) => {

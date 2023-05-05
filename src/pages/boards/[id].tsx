@@ -3,6 +3,7 @@ import { HeaderLayout } from "~/components/layouts";
 import { Menu } from "~/components/menu";
 import { getServerAuthSession } from "~/server/auth";
 import { prisma } from "~/server/db";
+import { api } from "~/utils/api";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
@@ -48,10 +49,21 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 };
 
 const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { data: board } = api.boards.getById.useQuery(boardData.id, { initialData: boardData });
+  const utils = api.useContext();
+  const patchBoardMutation = api.boards.patch.useMutation({
+    onSuccess: () => utils.boards.getById.invalidate(boardData.id)
+  });
+
   return (
     <HeaderLayout>
-      <main className="flex w-full flex-grow flex-col bg-white py-8 px-6 ">
-        <Menu members={boardData.team} isPrivate={boardData.isPrivate ?? false}></Menu>
+      <main className="flex w-full flex-grow flex-col bg-white py-6 px-6">
+        <Menu
+          members={board.team}
+          isPrivate={board.isPrivate ?? false}
+          setPrivate={(isPrivate) => patchBoardMutation.mutate({ id: boardData.id, data: { isPrivate } })}
+        ></Menu>
+        <div className="h-full rounded-xl bg-slate-50 py-6"></div>
       </main>
     </HeaderLayout>
   );

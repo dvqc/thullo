@@ -14,9 +14,7 @@ export default function Collapsible({
   const collapsibleRef = useRef<HTMLDivElement>(null);
 
   const handleToggle = () => {
-    
     setCollapsed(!collapsed);
-
   };
 
   const handleBlur = (e: FocusEvent) => {

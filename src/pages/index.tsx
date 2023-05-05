@@ -40,7 +40,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
 const Home = ({ boardsData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: boards } = api.board.getAll.useQuery(undefined, { initialData: boardsData });
+  const { data: boards } = api.boards.getAll.useQuery(undefined, { initialData: boardsData });
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
