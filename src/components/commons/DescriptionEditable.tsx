@@ -3,9 +3,14 @@ import { FileSvg, PenSvg } from "../svg";
 import Animate from "./Animate";
 import Button from "./Button";
 
-export default function DescriptionEditable({ initialDescription }: { initialDescription: string }) {
+export default function DescriptionEditable({
+  description,
+  onSave
+}: {
+  description: string;
+  onSave: (description: string) => void;
+}) {
   const [isEditing, setEditing] = useState(false);
-  const [description, setDescription] = useState(initialDescription);
   const [draft, setDraft] = useState(description);
 
   const handleEdit = () => {
@@ -14,7 +19,7 @@ export default function DescriptionEditable({ initialDescription }: { initialDes
   };
 
   const handleSave = () => {
-    setDescription(draft);
+    onSave(draft);
     setEditing(false);
   };
 

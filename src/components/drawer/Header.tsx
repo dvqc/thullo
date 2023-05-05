@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { CloseSvg } from "../svg";
 
-export default function Header({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
+export default function Header({ title, setIsOpen }: { title: string; setIsOpen: (isOpen: boolean) => void }) {
   return (
     <div className="flex items-center justify-between">
-      <p className="font-poppins text-xs font-semibold text-neutral-800">Devchallenges Board</p>
+      <p className="font-poppins text-xs font-semibold text-neutral-800">{title}</p>
       <button
         onClick={() => {
           setIsOpen(false);

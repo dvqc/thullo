@@ -44,25 +44,17 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     };
 
   return {
-    props: { session, boardData }
+    props: { session, boardData: JSON.parse(JSON.stringify(boardData)) }
   };
 };
 
 const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: board } = api.boards.getById.useQuery(boardData.id, { initialData: boardData });
-  const utils = api.useContext();
-  const patchBoardMutation = api.boards.patch.useMutation({
-    onSuccess: () => utils.boards.getById.invalidate(boardData.id)
-  });
 
   return (
     <HeaderLayout>
       <main className="flex w-full flex-grow flex-col bg-white py-6 px-6">
-        <Menu
-          members={board.team}
-          isPrivate={board.isPrivate ?? false}
-          setPrivate={(isPrivate) => patchBoardMutation.mutate({ id: boardData.id, data: { isPrivate } })}
-        ></Menu>
+        <Menu board={board}></Menu>
         <div className="h-full rounded-xl bg-slate-50 py-6"></div>
       </main>
     </HeaderLayout>

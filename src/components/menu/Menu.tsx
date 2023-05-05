@@ -7,19 +7,25 @@ import { AddSvg, LockSvg, MoreHorizSvg, PublicSvg } from "../svg";
 import { Drawer } from "../drawer";
 import { useState } from "react";
 import { Invite } from "../boards";
-import { Member } from "~/types";
+import { Board, Member } from "~/types";
 import { api } from "~/utils/api";
 
-const Menu = ({
-  members,
-  isPrivate,
-  setPrivate
-}: {
-  members: Member[];
-  isPrivate: boolean;
-  setPrivate: (isPrivate: boolean) => void;
-}) => {
+const Menu = ({ board }: { board: Board }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const utils = api.useContext();
+
+  const patchBoardMutation = api.boards.patch.useMutation({
+    onSuccess: () => utils.boards.getById.invalidate(board.id)
+  });
+
+  const handleVisiblity = (isPrivate: boolean) => {
+    patchBoardMutation.mutate({ id: board.id, data: { isPrivate } });
+  };
+
+  const handleDescription = (description: string) => {
+    patchBoardMutation.mutate({ id: board.id, data: { description } });
+  }
 
   return (
     <div className="flex w-full justify-between space-x-4 p-4">
@@ -28,7 +34,7 @@ const Menu = ({
           justify="left"
           toggler={
             <Button btnType="secondary" className="w-20" onClick={(e) => e.preventDefault()}>
-              {!isPrivate ? (
+              {!board.isPrivate ? (
                 <>
                   <PublicSvg className="h-3 w-3" />
                   Public
@@ -41,12 +47,12 @@ const Menu = ({
               )}
             </Button>
           }
-          content={<VisibilityCard setIsPrivate={setPrivate} />}
+          content={<VisibilityCard setIsPrivate={handleVisiblity} />}
         />
 
         <div className="flex space-x-3">
-          {members.map((member, index) => (
-            <Image className="h-8 w-8 rounded-lg" src={member.image ?? ProfilePic} alt={"User avatar"} key={index} />
+          {board.team.map((user, index) => (
+            <Image className="h-8 w-8 rounded-lg" src={user.image ?? ProfilePic} alt={"User avatar"} key={index} />
           ))}
           <Collapsible
             toggler={
@@ -69,7 +75,7 @@ const Menu = ({
         animationOut=" animate-slide-out"
         delay={200}
       >
-        <Drawer setIsOpen={setIsOpen} />
+        <Drawer setIsOpen={setIsOpen} board={board} handleDescription={handleDescription}/>
       </Animate>
       {/* <Collapsible
         toggler={

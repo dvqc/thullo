@@ -6,8 +6,17 @@ import Header from "./Header";
 import Owner from "./Owner";
 import Description from "./Description";
 import Team from "./Team";
+import { Board } from "~/types";
 
-export default function Drawer({ setIsOpen }: { setIsOpen: (isOpen: boolean) => void }) {
+export default function Drawer({
+  board,
+  setIsOpen,
+  handleDescription
+}: {
+  board: Board;
+  setIsOpen: (isOpen: boolean) => void;
+  handleDescription: (description: string) => void;
+}) {
   const drawerRef = useRef<HTMLElement>(null);
 
   const handleBlur = (e: MouseEvent) => {
@@ -20,11 +29,11 @@ export default function Drawer({ setIsOpen }: { setIsOpen: (isOpen: boolean) => 
   }, []);
   return (
     <aside className="  bg-white p-5" ref={drawerRef}>
-      <Header setIsOpen={setIsOpen} />
+      <Header title={board.title} setIsOpen={setIsOpen} />
       <hr className="my-1 h-[1.5px] bg-gray-100"></hr>
-      <Owner />
-      <Description />
-      <Team />
+      <Owner owner={board.owner} createdAt={board.createdAt} />
+      <Description description={board.description ?? ""} handleDescription={handleDescription} />
+      <Team owner={board.owner} team={board.team}/>
     </aside>
   );
 }

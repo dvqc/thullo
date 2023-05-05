@@ -3,7 +3,8 @@ import { AppRouter } from "~/server/api/root";
 
 type RouterOutput = inferRouterOutputs<AppRouter>;
 
-export type Member = RouterOutput["board"]["getById"]["team"][0];
+export type Member = RouterOutput["boards"]["getById"]["team"][0];
+export type Board = RouterOutput["boards"]["getById"];
 
 export type Badge = {
   id: string;
