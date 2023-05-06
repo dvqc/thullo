@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Animate, Button } from "../commons";
 import { AddSvg } from "../svg";
 
-export default function AddCard({ show, handleAddCard }: { show: boolean; handleAddCard: () => void }) {
-  const [newCardTitle, setNewCardTitle] = useState("");
+export default function AddCard({ show, handleAddTask }: { show: boolean; handleAddTask: () => void }) {
+  const [newTaskTitle, setNewTaskTitle] = useState("");
 
   const handleSave = () => {
     // const newCard = {
@@ -31,8 +31,8 @@ export default function AddCard({ show, handleAddCard }: { show: boolean; handle
             cols={22}
             placeholder="Enter a title for this card..."
             className="scroll-hidden p-1"
-            value={newCardTitle}
-            onChange={(e) => setNewCardTitle(e.target.value)}
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
           ></textarea>
           <Button onClick={handleSave} className="mt-1 bg-green-700 hover:bg-green-600">
             Save
@@ -41,7 +41,7 @@ export default function AddCard({ show, handleAddCard }: { show: boolean; handle
       </Animate>
 
       <Button
-        onClick={handleAddCard}
+        onClick={handleAddTask}
         btnType="primary-light"
         className={`absolute w-full justify-between ${!show && "animate-slide-up "}`}
       >

@@ -30,6 +30,12 @@ export const boardRouter = createTRPCRouter({
       where: { id: input },
       include: {
         owner: true,
+        lists: {
+          select: {
+            id: true,
+            title: true
+          }
+        },
         team: {
           select: {
             id: true,
@@ -121,6 +127,7 @@ export const boardRouter = createTRPCRouter({
       const board = await ctx.prisma.board.create({
         data: {
           ...input,
+          createdAt: new Date(),
           userId: authorId
         }
       });

@@ -82,12 +82,15 @@ model Task {
   title       String
   description String
   cover       String?
+  order       Int
   comments    Comment[]
   labels      Label[]
   members     User[]
 
   list   List?   @relation(fields: [listId], references: [id])
   listId String?
+
+  @@unique([listId, order])
 }
 
 model List {

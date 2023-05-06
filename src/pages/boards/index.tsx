@@ -3,16 +3,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { type NextPage } from "next";
 import { AddBoard, BoardCard } from "~/components/boards";
-import { List } from "~/components/lists";
 import boards from "~/data/boards.json";
 import listsJson from "~/data/lists.json";
-import cards from "~/data/cards.json";
-import { DragDropContext, Droppable, DropResult, resetServerContext } from "react-beautiful-dnd";
+import { DropResult, resetServerContext } from "react-beautiful-dnd";
 import { useState } from "react";
-import { CardView } from "~/components/cards";
 import { api } from "~/utils/api";
-import { Button, Modal } from "~/components/commons";
-import { Menu } from "~/components/menu";
 
 const reorder = (lists: any, srcListId: string, destListId: string, srcIndex: number, destIndex: number) => {
   // if same list & same position: do nothing
@@ -73,7 +68,7 @@ const Boards: NextPage = () => {
   resetServerContext();
 
   const ctx = api.useContext();
-  const { data, isLoading: postsLoading } = api.board.getAll.useQuery();
+  const { data, isLoading: postsLoading } = api.boards.getAll.useQuery();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -82,7 +77,6 @@ const Boards: NextPage = () => {
 
   return (
     <main className="container mx-auto flex flex-grow flex-col">
-      <Menu></Menu>
       <div className="m-4 h-full flex-grow rounded-xl bg-slate-50 p-5">
         <h2>boards</h2>
         <section className="my-10 flex flex-wrap gap-10">
