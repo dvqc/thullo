@@ -8,7 +8,7 @@ export const tasksRouter = createTRPCRouter({
       where: { id: input },
       include: {
         labels: true,
-        members: true,
+        members: true
       }
     });
 
@@ -45,6 +45,7 @@ export const tasksRouter = createTRPCRouter({
 
       const task = await ctx.prisma.task.create({
         data: {
+          listId: input.listId,
           ...input.data
         }
       });

@@ -8,10 +8,6 @@ import { api } from "~/utils/api";
 function List({ listId }: { listId: string }) {
   const { data: list } = api.lists.getById.useQuery(listId);
 
-  // const [cardsList, setCardsList] = useState(list);
-  // const cards = JSON.parse(JSON.stringify(list.cards));
-  // const orderedCards = cards.sort((a: any, b: any) => a.order - b.order);
-
   if (!list) return null;
 
   return (
@@ -29,7 +25,7 @@ function List({ listId }: { listId: string }) {
             ))}
             {provided.placeholder}
           </ul>
-          <AddTask listId={listId} order={((list.tasks.at(-1)?.order) ?? -1)+1}></AddTask>
+          <AddTask listId={listId} order={(list.tasks.at(-1)?.order ?? -1) + 1}></AddTask>
         </article>
       )}
     </StrictModeDroppable>
