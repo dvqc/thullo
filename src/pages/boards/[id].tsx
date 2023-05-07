@@ -34,8 +34,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     include: {
       owner: true,
       lists: {
-        select: {
-          id: true
+        include: {
+          tasks: {
+            include: {
+              labels: true,
+              members: true
+            }
+          }
         }
       },
       team: {
@@ -89,7 +94,7 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
         <section className="my-8 flex h-full flex-wrap gap-10 rounded-xl bg-slate-50 p-6 ">
           <DragDropContext onDragEnd={onDragEnd}>
             {board.lists.map((list) => (
-              <List listId={list.id} key={list.id}></List>
+              <List listData={list} key={list.id}></List>
             ))}
             <AddList boardId={board.id}></AddList>
           </DragDropContext>

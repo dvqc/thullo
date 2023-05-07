@@ -4,9 +4,10 @@ import { useState } from "react";
 import ListHeader from "./ListHeader";
 import AddTask from "./AddTask";
 import { api } from "~/utils/api";
+import type { List } from "~/types";
 
-function List({ listId }: { listId: string }) {
-  const { data: list } = api.lists.getById.useQuery(listId);
+export default function List({ listData }: { listData: List }) {
+  const { data: list } = api.lists.getById.useQuery(listData.id, { initialData: listData });
 
   if (!list) return null;
 
@@ -25,11 +26,9 @@ function List({ listId }: { listId: string }) {
             ))}
             {provided.placeholder}
           </ul>
-          <AddTask listId={listId} order={(list.tasks.at(-1)?.order ?? -1) + 1}></AddTask>
+          <AddTask listId={list.id} order={(list.tasks.at(-1)?.order ?? -1) + 1}></AddTask>
         </article>
       )}
     </StrictModeDroppable>
   );
 }
-
-export default List;
