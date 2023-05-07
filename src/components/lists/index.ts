@@ -1,3 +1,4 @@
 import List from "./List";
+import AddList from "./AddList";
 
-export { List };
+export { List, AddList };

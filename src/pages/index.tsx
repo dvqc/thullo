@@ -34,7 +34,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   });
 
   return {
-    props: { session, boardsData }
+    props: { session, boardsData: JSON.parse(JSON.stringify(boardsData)) }
   };
 };
 

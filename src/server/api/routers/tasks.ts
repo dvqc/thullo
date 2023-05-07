@@ -23,7 +23,7 @@ export const tasksRouter = createTRPCRouter({
         listId: z.string(),
         data: z.object({
           title: z.string(),
-          description: z.string(),
+          description: z.string().optional(),
           cover: z.string().optional(),
           order: z.number()
         })

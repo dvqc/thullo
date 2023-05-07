@@ -25,10 +25,10 @@ const Menu = ({ board }: { board: Board }) => {
 
   const handleDescription = (description: string) => {
     patchBoardMutation.mutate({ id: board.id, data: { description } });
-  }
+  };
 
   return (
-    <div className="flex w-full justify-between space-x-4 p-4">
+    <div className="flex w-full justify-between space-x-4 py-4">
       <div className="flex items-center gap-4">
         <Collapsible
           justify="left"
@@ -75,7 +75,7 @@ const Menu = ({ board }: { board: Board }) => {
         animationOut=" animate-slide-out"
         delay={200}
       >
-        <Drawer setIsOpen={setIsOpen} board={board} handleDescription={handleDescription}/>
+        <Drawer setIsOpen={setIsOpen} board={board} handleDescription={handleDescription} />
       </Animate>
       {/* <Collapsible
         toggler={

@@ -1,14 +1,15 @@
-import dynamic from "next/dynamic";
 import { Draggable } from "react-beautiful-dnd";
 import { Button, Members } from "../commons";
-import { AddSvg, CommentSvg, FileSvg } from "../svg";
+import { AddSvg } from "../svg";
 import Badge from "./Badge";
 import { api } from "~/utils/api";
-import { Task } from "~/types";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
-function Task({ taskData, index }: { taskData: Task; index: number }) {
-  const { data: task } = api.tasks.getById.useQuery(taskData.id, { initialData: taskData });
+function Task({ taskId, index }: { taskId: string; index: number }) {
+  const { data: task } = api.tasks.getById.useQuery(taskId);
+
+  if (!task) return null;
 
   return (
     <Draggable key={task.id} draggableId={String(task.id)} index={index}>
@@ -66,5 +67,5 @@ function Task({ taskData, index }: { taskData: Task; index: number }) {
   );
 }
 export default dynamic(() => Promise.resolve(Task), {
-  ssr: false
+  ssr: true
 });

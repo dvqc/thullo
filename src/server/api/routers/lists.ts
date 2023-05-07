@@ -12,24 +12,46 @@ export const listsRouter = createTRPCRouter({
     const list = await ctx.prisma.list.findUnique({
       where: { id: input },
       include: {
-        tasks: true
+        tasks: {
+          select: {
+            id: true,
+            order: true
+          }
+        }
       }
     });
 
     if (!list) throw new TRPCError({ code: "NOT_FOUND" });
 
     return list;
-  })
+  }),
+  create: protectedProcedure
+    .input(
+      z.object({
+        data: z.object({
+          title: z.string()
+        }),
+        boardId: z.string()
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const board = await ctx.prisma.board.findUnique({
+        where: {
+          id: input.boardId
+        }
+      });
 
-  // create: protectedProcedure.mutation(async ({ ctx, input }) => {
-  //   // const authorId = ctx.userId;
-  //   const list = await ctx.prisma.list.create({
-  //     data: {
-  //       // userId: authorId,
-  //       content: input.content
-  //     }
-  //   });
+      if (!board) throw new TRPCError({ code: "BAD_REQUEST" });
+      if (board.userId != userId) throw new TRPCError({ code: "FORBIDDEN" });
 
-  //   return list;
-  // })
+      const list = await ctx.prisma.list.create({
+        data: {
+          ...input.data,
+          boardId: board.id
+        }
+      });
+
+      return list;
+    })
 });

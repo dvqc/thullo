@@ -80,7 +80,7 @@ model Comment {
 model Task {
   id          String    @id @default(cuid())
   title       String
-  description String
+  description String    @default("")
   cover       String?
   order       Int
   comments    Comment[]
@@ -105,8 +105,8 @@ model Board {
   id          String   @id @default(cuid())
   userId      String
   title       String
-  description String?
-  isPrivate   Boolean? @default(false)
+  description String   @default("")
+  isPrivate   Boolean  @default(false)
   picture     String?
   createdAt   DateTime
   owner       User     @relation(fields: [userId], references: [id], onDelete: Cascade, name: "owner")

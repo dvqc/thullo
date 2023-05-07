@@ -7,7 +7,7 @@ import { Member } from "~/types";
 
 export default function Team({ owner, team }: { owner: Member; team: Member[] }) {
   return (
-    <div className="members my-2">
+    <div className="my-2">
       <div className="flex items-center fill-gray-400 font-poppins text-2xs  font-semibold text-gray-400">
         <FileSvg className="h-4 w-4" />
         <p className="ml-2  ">Team</p>

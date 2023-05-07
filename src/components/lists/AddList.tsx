@@ -3,34 +3,34 @@ import { api } from "~/utils/api";
 import { Animate, Button } from "../commons";
 import { AddSvg } from "../svg";
 
-export default function AddTask({ listId, order }: { listId: string; order: number }) {
+export default function AddList({ boardId }: { boardId: string }) {
   const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
   const utils = api.useContext();
 
-  const createTaskMutation = api.tasks.create.useMutation({
-    onSuccess: () => utils.lists.getById.invalidate(listId)
+  const createListMutation = api.lists.create.useMutation({
+    onSuccess: () => utils.boards.getById.invalidate(boardId)
   });
 
   const handleSave = () => {
-    createTaskMutation.mutate({listId,  data: { title, order } });
+    createListMutation.mutate({ boardId, data: { title } });
     setTitle("");
     setIsAdding(false);
   };
 
-  const handleAddTask = () => {
+  const handleAddList = () => {
     setIsAdding(!isAdding);
   };
 
   return (
-    <article className="relative mt-6">
+    <article className="relative mt-6 h-fit w-60">
       <Animate isMounted={isAdding} animationIn="animate-fade-in" animationOut="animate-fade-out" delay={400}>
         <div tabIndex={-1} className="my-4 rounded-xl border-1 border-gray-200 bg-white p-3 shadow-lg">
           <textarea
             rows={2}
             cols={22}
-            placeholder="Enter a title for this card..."
+            placeholder="Enter a title for this list..."
             className="scroll-hidden p-1"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -42,12 +42,12 @@ export default function AddTask({ listId, order }: { listId: string; order: numb
       </Animate>
 
       <Button
-        onClick={handleAddTask}
+        onClick={handleAddList}
         btnType="primary-light"
         className={`absolute w-full justify-between ${!isAdding && "animate-slide-up "}`}
         onAnimationEnd={() => !isAdding && setTitle("")}
       >
-        Add another card <AddSvg className="h-4 w-4"></AddSvg>
+        Add another list <AddSvg className="h-4 w-4"></AddSvg>
       </Button>
     </article>
   );

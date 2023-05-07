@@ -28,12 +28,12 @@ export default function Drawer({
     return () => document.removeEventListener("click", handleBlur);
   }, []);
   return (
-    <aside className="  bg-white p-5" ref={drawerRef}>
+    <aside className="min-h-full  bg-white p-5" ref={drawerRef}>
       <Header title={board.title} setIsOpen={setIsOpen} />
       <hr className="my-1 h-[1.5px] bg-gray-100"></hr>
       <Owner owner={board.owner} createdAt={board.createdAt} />
       <Description description={board.description ?? ""} handleDescription={handleDescription} />
-      <Team owner={board.owner} team={board.team}/>
+      <Team owner={board.owner} team={board.team} />
     </aside>
   );
 }

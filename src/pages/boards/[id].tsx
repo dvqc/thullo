@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { DragDropContext, DropResult, resetServerContext } from "react-beautiful-dnd";
 import { HeaderLayout } from "~/components/layouts";
-import { List } from "~/components/lists";
+import { AddList, List } from "~/components/lists";
 import { Menu } from "~/components/menu";
 import { getServerAuthSession } from "~/server/auth";
 import { prisma } from "~/server/db";
@@ -35,8 +35,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
       owner: true,
       lists: {
         select: {
-          id: true,
-          title: true,
+          id: true
         }
       },
       team: {
@@ -87,15 +86,14 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
     <HeaderLayout>
       <main className="flex w-full flex-grow flex-col bg-white py-6 px-6">
         <Menu board={board}></Menu>
-        <div className="h-full rounded-xl bg-slate-50 py-6">
-          <section className="my-10 flex flex-wrap gap-10">
-            <DragDropContext onDragEnd={onDragEnd}>
-              {board.lists.map((list) => (
-                <List listData={list} key={list.id}></List>
-              ))}
-            </DragDropContext>
-          </section>
-        </div>
+        <section className="my-8 flex h-full flex-wrap gap-10 rounded-xl bg-slate-50 p-6 ">
+          <DragDropContext onDragEnd={onDragEnd}>
+            {board.lists.map((list) => (
+              <List listId={list.id} key={list.id}></List>
+            ))}
+            <AddList boardId={board.id}></AddList>
+          </DragDropContext>
+        </section>
       </main>
     </HeaderLayout>
   );

@@ -33,7 +33,6 @@ export const boardRouter = createTRPCRouter({
         lists: {
           select: {
             id: true,
-            title: true
           }
         },
         team: {
