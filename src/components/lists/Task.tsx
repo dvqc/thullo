@@ -27,13 +27,9 @@ function Task({ taskId, index }: { taskId: string; index: number }) {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Image
-            className="h-32 w-full rounded-xl object-cover"
-            width={240}
-            height={128}
-            src={task.cover ?? "/ceo.jpeg"}
-            alt=""
-          />
+          {task.cover && (
+            <Image className="h-32 w-full rounded-xl object-cover" width={240} height={128} src={task.cover} alt="" />
+          )}
           <h3 className="my-3 text-base font-normal text-black">{task.title}</h3>
           <div className="my-3 flex flex-wrap gap-3">
             {task.labels.map((label) => (

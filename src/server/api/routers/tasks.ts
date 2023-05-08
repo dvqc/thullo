@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { memberGuard } from "~/server/utils";
 
 export const tasksRouter = createTRPCRouter({
   getById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
@@ -34,14 +35,11 @@ export const tasksRouter = createTRPCRouter({
       const list = await ctx.prisma.list.findUnique({
         where: {
           id: input.listId
-        },
-        include: {
-          board: true
         }
       });
 
       if (!list) throw new TRPCError({ code: "BAD_REQUEST" });
-      if (list.board.userId != userId) throw new TRPCError({ code: "FORBIDDEN" });
+      memberGuard(ctx.prisma, list.boardId, userId);
 
       const task = await ctx.prisma.task.create({
         data: {
