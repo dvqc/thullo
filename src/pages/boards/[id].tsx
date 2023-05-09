@@ -33,16 +33,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     },
     include: {
       owner: true,
-      lists: {
-        include: {
-          tasks: {
-            include: {
-              labels: true,
-              members: true
-            }
-          }
-        }
-      },
+      lists: true,
       team: {
         select: {
           id: true,
@@ -68,6 +59,9 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
 const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { data: board } = api.boards.getById.useQuery(boardData.id, { initialData: boardData });
+  const moveTaskMutation = api.tasks.moveTask.useMutation();
+
+  const utils = api.useContext();
 
   const onDragEnd = (result: DropResult) => {
     // dropped outside the lists
@@ -75,15 +69,20 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
       return;
     }
 
-    // const reordered = reorder(
-    //   lists,
-    //   result.source.droppableId,
-    //   result.destination.droppableId,
-    //   result.source.index,
-    //   result.destination.index
-    // );
-
-    // setLists(reordered);
+    const distListId = result.destination.droppableId;
+    const srcListId = result.destination.droppableId;
+    const taskId = result.draggableId;
+    const order = result.destination.index;
+    
+    moveTaskMutation.mutate(
+      { taskId, distListId, order},
+      {
+        onSuccess: () => {
+          utils.boards.getById.invalidate(srcListId);
+          utils.boards.getById.invalidate(distListId);
+        }
+      }
+    );
   };
   resetServerContext();
 

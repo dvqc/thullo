@@ -1,6 +1,5 @@
 import { StrictModeDroppable } from "../commons";
 import Task from "./Task";
-import { useState } from "react";
 import ListHeader from "./ListHeader";
 import AddTask from "./AddTask";
 import { api } from "~/utils/api";

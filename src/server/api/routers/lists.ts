@@ -41,7 +41,7 @@ export const listsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      memberGuard(ctx.prisma, input.boardId, userId);
+      await memberGuard(ctx.prisma, input.boardId, userId);
 
       const list = await ctx.prisma.list.create({
         data: {
@@ -70,7 +70,7 @@ export const listsRouter = createTRPCRouter({
         }
       });
       if (!list) throw new TRPCError({ code: "NOT_FOUND" });
-      memberGuard(ctx.prisma, list.boardId, userId);
+      await memberGuard(ctx.prisma, list.boardId, userId);
 
       list = await ctx.prisma.list.update({
         data: {
@@ -95,7 +95,7 @@ export const listsRouter = createTRPCRouter({
     });
 
     if (!list) throw new TRPCError({ code: "NOT_FOUND" });
-    memberGuard(ctx.prisma, list.boardId, userId);
+    await memberGuard(ctx.prisma, list.boardId, userId);
 
     const deleted = await ctx.prisma.list.delete({
       where: {
