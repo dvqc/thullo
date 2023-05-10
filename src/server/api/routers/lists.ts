@@ -16,10 +16,10 @@ export const listsRouter = createTRPCRouter({
         tasks: {
           select: {
             id: true,
-            order: true
+            indx: true
           },
           orderBy: {
-            order: "asc"
+            indx: "asc"
           }
         }
       }

@@ -72,14 +72,14 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
     const distListId = result.destination.droppableId;
     const srcListId = result.destination.droppableId;
     const taskId = result.draggableId;
-    const order = result.destination.index;
-    
+    const indx = result.destination.index;
+
     moveTaskMutation.mutate(
-      { taskId, distListId, order},
+      { taskId, distListId, indx },
       {
         onSuccess: () => {
-          utils.boards.getById.invalidate(srcListId);
-          utils.boards.getById.invalidate(distListId);
+          utils.lists.getById.invalidate(srcListId);
+          if (srcListId !== distListId) utils.lists.getById.invalidate(distListId);
         }
       }
     );

@@ -26,7 +26,7 @@ export const tasksRouter = createTRPCRouter({
           title: z.string(),
           description: z.string().optional(),
           cover: z.string().optional(),
-          order: z.number()
+          indx: z.number()
         })
       })
     )
@@ -56,7 +56,7 @@ export const tasksRouter = createTRPCRouter({
       z.object({
         taskId: z.string(),
         distListId: z.string(),
-        order: z.number().min(0)
+        indx: z.number().min(0)
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -81,31 +81,31 @@ export const tasksRouter = createTRPCRouter({
       if (input.distListId !== task.listId)
         await ctx.prisma.$transaction([
           ctx.prisma
-            .$executeRaw`UPDATE Task SET order = order+1 WHERE listId=${input.distListId} and order >= ${input.order};`,
+            .$executeRaw`UPDATE Task SET indx = indx+1 WHERE listId=${input.distListId} and indx >= ${input.indx};`,
           ctx.prisma.task.update({
             data: {
               listId: input.distListId,
-              order: input.order
+              indx: input.indx
             },
             where: {
               id: input.taskId
             }
           }),
-          ctx.prisma.$executeRaw`UPDATE Task SET order = order-1 WHERE listId=${task.listId} and order > ${task.order};`
+          ctx.prisma.$executeRaw`UPDATE Task SET indx = indx-1 WHERE listId=${task.listId} and indx > ${task.indx};`
         ]);
-      else if (input.order > task.order)
+      else if (input.indx > task.indx)
         await ctx.prisma.$transaction([
-          ctx.prisma.$executeRaw`UPDATE Task SET order = -1 WHERE id=${input.taskId};`,
+          ctx.prisma.$executeRaw`UPDATE Task SET indx = -1 WHERE id=${input.taskId};`,
           ctx.prisma
-            .$executeRaw`UPDATE Task SET order = order-1 WHERE listId=${task.listId} and order > ${task.order} and order <= ${input.order};`,
-          ctx.prisma.$executeRaw`UPDATE Task SET order =${input.order} WHERE id=${input.taskId};`
+            .$executeRaw`UPDATE Task SET indx = indx-1 WHERE listId=${task.listId} and indx > ${task.indx} and indx <= ${input.indx};`,
+          ctx.prisma.$executeRaw`UPDATE Task SET indx =${input.indx} WHERE id=${input.taskId};`
         ]);
-      else if (input.order < task.order)
+      else if (input.indx < task.indx)
         await ctx.prisma.$transaction([
-          ctx.prisma.$executeRaw`UPDATE Task SET order = -1 WHERE id=${input.taskId};`,
+          ctx.prisma.$executeRaw`UPDATE Task SET indx = -1 WHERE id=${input.taskId};`,
           ctx.prisma
-            .$executeRaw`UPDATE Task SET order = order+1 WHERE listId=${task.listId} and order < ${task.order} and order >= ${input.order};`,
-          ctx.prisma.$executeRaw`UPDATE Task SET order =${input.order} WHERE id=${input.taskId};`
+            .$executeRaw`UPDATE Task SET indx = indx+1 WHERE listId=${task.listId} and indx < ${task.indx} and indx >= ${input.indx};`,
+          ctx.prisma.$executeRaw`UPDATE Task SET indx =${input.indx} WHERE id=${input.taskId};`
         ]);
     })
 });

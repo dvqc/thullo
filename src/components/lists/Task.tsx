@@ -12,7 +12,7 @@ function Task({ taskId, index }: { taskId: string; index: number }) {
   if (!task) return null;
 
   return (
-    <Draggable key={task.id} draggableId={task.id} index={task.order}>
+    <Draggable key={task.id} draggableId={task.id} index={task.indx}>
       {(provided, snapshot) => (
         <li
           className={`unselectable w-60 rounded-xl bg-white p-3 shadow-lg ${

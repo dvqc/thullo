@@ -36,7 +36,7 @@ export default function List({ listData }: { listData: List }) {
                 ))}
                 {provided.placeholder}
               </ul>
-              <AddTask listId={list.id} order={(list.tasks.at(-1)?.order ?? -1) + 1}></AddTask>
+              <AddTask listId={list.id} indx={(list.tasks.at(-1)?.indx ?? -1) + 1}></AddTask>
             </>
           )}
         </article>

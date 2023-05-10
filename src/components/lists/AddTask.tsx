@@ -3,7 +3,7 @@ import { api } from "~/utils/api";
 import { Animate, Button } from "../commons";
 import { AddSvg } from "../svg";
 
-export default function AddTask({ listId, order }: { listId: string; order: number }) {
+export default function AddTask({ listId, indx }: { listId: string; indx: number }) {
   const [title, setTitle] = useState("");
   const [isAdding, setIsAdding] = useState(false);
 
@@ -14,7 +14,7 @@ export default function AddTask({ listId, order }: { listId: string; order: numb
   });
 
   const handleSave = () => {
-    createTaskMutation.mutate({listId,  data: { title, order } });
+    createTaskMutation.mutate({listId,  data: { title, indx } });
     setTitle("");
     setIsAdding(false);
   };

@@ -82,7 +82,7 @@ model Task {
   title       String
   description String    @default("")
   cover       String?
-  order       Int
+  indx        Int
   comments    Comment[]
   labels      Label[]
   members     User[]
@@ -90,7 +90,7 @@ model Task {
   list   List?   @relation(fields: [listId], references: [id], onDelete: Cascade)
   listId String?
 
-  @@unique([listId, order])
+  @@unique([listId, indx])
 }
 
 model List {
