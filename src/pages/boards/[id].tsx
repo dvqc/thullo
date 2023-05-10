@@ -70,7 +70,7 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
     }
 
     const distListId = result.destination.droppableId;
-    const srcListId = result.destination.droppableId;
+    const srcListId = result.source.droppableId;
     const taskId = result.draggableId;
     const indx = result.destination.index;
 
