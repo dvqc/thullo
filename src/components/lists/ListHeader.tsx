@@ -33,9 +33,6 @@ export default function ListHeader({
     setEditing("editing");
   };
 
-  console.log(listName);
-  console.log(title);
-
   const handleBlur = (e: MouseEvent) => {
     if (!e.target || (editorRef.current && !editorRef.current.contains(e.target as Node))) {
       setEditing("closing");

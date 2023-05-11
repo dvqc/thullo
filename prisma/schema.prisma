@@ -89,8 +89,6 @@ model Task {
 
   list   List?   @relation(fields: [listId], references: [id], onDelete: Cascade)
   listId String?
-
-  @@unique([listId, indx])
 }
 
 model List {

@@ -6,13 +6,13 @@ import { api } from "~/utils/api";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-function Task({ taskId, index }: { taskId: string; index: number }) {
+function Task({ taskId }: { taskId: string }) {
   const { data: task } = api.tasks.getById.useQuery(taskId);
 
   if (!task) return null;
 
   return (
-    <Draggable key={task.id} draggableId={task.id} index={task.indx}>
+    <Draggable key={task.id + task.indx} draggableId={task.id} index={task.indx}>
       {(provided, snapshot) => (
         <li
           className={`unselectable w-60 rounded-xl bg-white p-3 shadow-lg ${

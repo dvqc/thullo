@@ -16,7 +16,7 @@ export default function List({ listData }: { listData: List }) {
   if (!list) return null;
 
   return (
-    <StrictModeDroppable direction="vertical" droppableId={String(list.id)}>
+    <StrictModeDroppable direction="vertical" droppableId={list.id}>
       {(provided, snapshot) => (
         <article
           {...provided.droppableProps}
@@ -32,7 +32,7 @@ export default function List({ listData }: { listData: List }) {
             <>
               <ul className="flex flex-col gap-6">
                 {list.tasks.map((task, i: number) => (
-                  <Task taskId={task.id} key={task.id} index={i}></Task>
+                  <Task taskId={task.id} key={task.id + task.indx}></Task>
                 ))}
                 {provided.placeholder}
               </ul>
