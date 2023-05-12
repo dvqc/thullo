@@ -1,10 +1,7 @@
 import { type GetServerSidePropsContext } from "next";
-import {
-  getServerSession,
-  type NextAuthOptions,
-  type DefaultSession,
-} from "next-auth";
+import { getServerSession, type NextAuthOptions, type DefaultSession } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
@@ -43,14 +40,18 @@ export const authOptions: NextAuthOptions = {
         // session.user.role = user.role; <-- put other properties on the session here
       }
       return session;
-    },
+    }
   },
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
       clientId: env.GITHUB_CLIENT_ID,
-      clientSecret: env.GITHUB_CLIENT_SECRET,
+      clientSecret: env.GITHUB_CLIENT_SECRET
     }),
+    GoogleProvider({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET
+    })
     /**
      * ...add more providers here.
      *
@@ -60,7 +61,7 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
-  ],
+  ]
 };
 
 /**

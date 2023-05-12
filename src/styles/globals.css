@@ -5,7 +5,14 @@
 html {
   font-size: 18px;
   font-family: "Noto Sans", sans-serif;
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
 }
+
+html::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 input,
 textarea {
   all: unset;

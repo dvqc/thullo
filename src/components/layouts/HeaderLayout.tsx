@@ -3,7 +3,7 @@ import React from "react";
 
 import Header from "../header";
 
-const HeaderLayout = ({ children }: { children: React.ReactNode }) => {
+const HeaderLayout = ({ boardTitle,children }: { boardTitle?:string; children: React.ReactNode }) => {
   return (
     <>
       <Head>
@@ -18,7 +18,7 @@ const HeaderLayout = ({ children }: { children: React.ReactNode }) => {
         />
       </Head>
       <div className="flex h-screen flex-col">
-        <Header />
+        <Header boardTitle={boardTitle}/>
         {children}
       </div>
     </>

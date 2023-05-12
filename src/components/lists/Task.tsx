@@ -1,13 +1,13 @@
 import { Draggable } from "react-beautiful-dnd";
 import { Button, Members } from "../commons";
-import { AddSvg } from "../svg";
+import { AddSvg, CommentSvg } from "../svg";
 import Badge from "./Badge";
 import { api } from "~/utils/api";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
 function Task({ taskId }: { taskId: string }) {
-  const { data: task } = api.tasks.getById.useQuery(taskId);
+  const { data: task } = api.tasks.getPreviewById.useQuery(taskId);
 
   if (!task) return null;
 
@@ -43,19 +43,19 @@ function Task({ taskId }: { taskId: string }) {
                 <AddSvg className="h-4 w-4"></AddSvg>
               </Button>
             </div>
-            {/* <div className="flex items-center gap-3">
-              {task.commentsNumber > 0 && (
+            <div className="flex items-center gap-3">
+              {task._count.comments > 0 && (
                 <p className="flex h-4 items-center fill-gray-400 text-xs text-gray-400">
-                  <CommentSvg></CommentSvg> {task.commentsNumber}
+                  <CommentSvg></CommentSvg> {task._count.comments}
                 </p>
               )}
-              {task.attachmentsNumber > 0 && (
+              {/*   {task.attachmentsNumber > 0 && (
                 <p className="flex h-4 items-center fill-gray-400 text-xs text-gray-400">
                   <FileSvg></FileSvg>
                   {task.attachmentsNumber}
                 </p>
-              )}
-            </div> */}
+              )}*/}
+            </div>
           </div>
         </li>
       )}

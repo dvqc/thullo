@@ -10,7 +10,6 @@ import { api } from "~/utils/api";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
-
   if (!session || !session.user)
     return {
       redirect: {
@@ -18,6 +17,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         permanent: false
       }
     };
+
+  const userId = session.user.id;
 
   const id = ctx.params?.id;
   if (!id || id instanceof Array)
@@ -52,6 +53,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         permanent: false
       }
     };
+  if (!boardData.team.find((member) => member.id === userId) && boardData.userId !== userId)
+    return {
+      redirect: {
+        destination: "/403",
+        permanent: false
+      }
+    };
 
   return {
     props: { session, boardData: JSON.parse(JSON.stringify(boardData)) }
@@ -70,7 +78,6 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
     if (!result.destination) {
       return;
     }
-
     const destListId = result.destination.droppableId;
     const srcListId = result.source.droppableId;
     const taskId = result.draggableId;
@@ -79,7 +86,7 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
     moveTaskMutation.mutate(
       { taskId, destListId, indx },
       {
-        onSuccess: () => {
+        onSettled: () => {
           utils.lists.getById.invalidate(srcListId);
           if (srcListId !== destListId) utils.lists.getById.invalidate(destListId);
         }
@@ -89,7 +96,7 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
   resetServerContext();
 
   return (
-    <HeaderLayout>
+    <HeaderLayout boardTitle={board.title}>
       <main className="flex w-full flex-grow flex-col bg-white py-6 px-6">
         <Menu board={board}></Menu>
         <section className="my-8 flex h-full flex-wrap gap-10 rounded-xl bg-slate-50 p-6 ">

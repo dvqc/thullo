@@ -7,7 +7,7 @@ import { AddSvg, LockSvg, MoreHorizSvg, PublicSvg } from "../svg";
 import { Drawer } from "../drawer";
 import { useState } from "react";
 import { Invite } from "../boards";
-import { Board, Member } from "~/types";
+import { Board } from "~/types";
 import { api } from "~/utils/api";
 
 const Menu = ({ board }: { board: Board }) => {
@@ -52,7 +52,14 @@ const Menu = ({ board }: { board: Board }) => {
 
         <div className="flex space-x-3">
           {board.team.map((user, index) => (
-            <Image className="h-8 w-8 rounded-lg" src={user.image ?? ProfilePic} alt={"User avatar"} key={index} />
+            <Image
+              className="h-8 w-8 rounded-lg"
+              width={32}
+              height={32}
+              src={user.image ?? ProfilePic}
+              alt={"User avatar"}
+              key={index}
+            />
           ))}
           <Collapsible
             toggler={

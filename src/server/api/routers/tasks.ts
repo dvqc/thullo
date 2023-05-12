@@ -4,12 +4,44 @@ import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 import { memberGuard } from "~/server/utils";
 
 export const tasksRouter = createTRPCRouter({
+  getPreviewById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
+    const task = await ctx.prisma.task.findUnique({
+      where: { id: input },
+      include: {
+        labels: true,
+        _count: {
+          select: {
+            comments: true
+          }
+        },
+        members: {
+          take: 3,
+          select: {
+            _count: true,
+            id: true,
+            name: true,
+            image: true
+          }
+        }
+      }
+    });
+
+    if (!task) throw new TRPCError({ code: "NOT_FOUND" });
+
+    return task;
+  }),
   getById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const task = await ctx.prisma.task.findUnique({
       where: { id: input },
       include: {
         labels: true,
-        members: true
+        members: {
+          select: {
+            id: true,
+            name: true,
+            image: true
+          }
+        }
       }
     });
 

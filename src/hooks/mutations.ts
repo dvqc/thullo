@@ -8,8 +8,8 @@ export const useMoveTaskMutation = () => {
       const destList = JSON.parse(JSON.stringify(utils.lists.getById.getData(destListId))) as ReturnType<
         typeof utils.lists.getById.getData
       >;
-      const movedTask = JSON.parse(JSON.stringify(utils.tasks.getById.getData(taskId))) as ReturnType<
-        typeof utils.tasks.getById.getData
+      const movedTask = JSON.parse(JSON.stringify(utils.tasks.getPreviewById.getData(taskId))) as ReturnType<
+        typeof utils.tasks.getPreviewById.getData
       >;
 
       if (movedTask && destList) {
@@ -53,7 +53,7 @@ export const useMoveTaskMutation = () => {
           }
           srcList.tasks.sort((taskA, taskB) => taskA.indx - taskB.indx);
           utils.lists.getById.setData(srcList.id, srcList);
-          utils.tasks.getById.setData(taskId, movedTask);
+          utils.tasks.getPreviewById.setData(taskId, movedTask);
         }
       }
     }
