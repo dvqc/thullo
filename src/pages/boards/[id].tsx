@@ -3,6 +3,7 @@ import { DragDropContext, DropResult, resetServerContext } from "react-beautiful
 import { HeaderLayout } from "~/components/layouts";
 import { AddList, List } from "~/components/lists";
 import { Menu } from "~/components/menu";
+import { useMoveTaskMutation } from "~/hooks/mutations";
 import { getServerAuthSession } from "~/server/auth";
 import { prisma } from "~/server/db";
 import { api } from "~/utils/api";
@@ -58,10 +59,11 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 };
 
 const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { data: board } = api.boards.getById.useQuery(boardData.id, { initialData: boardData });
-  const moveTaskMutation = api.tasks.moveTask.useMutation();
-
   const utils = api.useContext();
+
+  const { data: board } = api.boards.getById.useQuery(boardData.id, { initialData: boardData });
+
+  const moveTaskMutation = useMoveTaskMutation();
 
   const onDragEnd = (result: DropResult) => {
     // dropped outside the lists
@@ -69,17 +71,17 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
       return;
     }
 
-    const distListId = result.destination.droppableId;
+    const destListId = result.destination.droppableId;
     const srcListId = result.source.droppableId;
     const taskId = result.draggableId;
     const indx = result.destination.index;
 
     moveTaskMutation.mutate(
-      { taskId, distListId, indx },
+      { taskId, destListId, indx },
       {
         onSuccess: () => {
           utils.lists.getById.invalidate(srcListId);
-          if (srcListId !== distListId) utils.lists.getById.invalidate(distListId);
+          if (srcListId !== destListId) utils.lists.getById.invalidate(destListId);
         }
       }
     );

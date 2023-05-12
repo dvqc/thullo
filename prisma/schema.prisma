@@ -87,8 +87,8 @@ model Task {
   labels      Label[]
   members     User[]
 
-  list   List?   @relation(fields: [listId], references: [id], onDelete: Cascade)
-  listId String?
+  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String
 }
 
 model List {
