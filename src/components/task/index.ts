@@ -1,1 +1,1 @@
-export { default as CardView } from "./TaskView";
+export { default as TaskView } from "./TaskView";

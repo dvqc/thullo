@@ -5,7 +5,7 @@ import AddTask from "./AddTask";
 import { api } from "~/utils/api";
 import type { List } from "~/types";
 
-export default function List({ listData }: { listData: List }) {
+export default function List({ listData, selectTask }: { listData: List; selectTask: (id: string) => void }) {
   const utils = api.useContext();
 
   const { data: list } = api.lists.getById.useQuery(listData.id, { initialData: listData });
@@ -32,7 +32,7 @@ export default function List({ listData }: { listData: List }) {
             <>
               <ul className="flex flex-col gap-6">
                 {list.tasks.map((task, i: number) => (
-                  <Task taskId={task.id} key={task.id + task.indx}></Task>
+                  <Task taskId={task.id} key={task.id + task.indx} selectTask={selectTask}></Task>
                 ))}
                 {provided.placeholder}
               </ul>

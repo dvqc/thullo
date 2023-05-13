@@ -1,8 +1,11 @@
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
+import { useState } from "react";
 import { DragDropContext, DropResult, resetServerContext } from "react-beautiful-dnd";
+import { Modal } from "~/components/commons";
 import { HeaderLayout } from "~/components/layouts";
 import { AddList, List } from "~/components/lists";
 import { Menu } from "~/components/menu";
+import { TaskView } from "~/components/task";
 import { useMoveTaskMutation } from "~/hooks/mutations";
 import { getServerAuthSession } from "~/server/auth";
 import { prisma } from "~/server/db";
@@ -72,6 +75,10 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
   const { data: board } = api.boards.getById.useQuery(boardData.id, { initialData: boardData });
 
   const moveTaskMutation = useMoveTaskMutation();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<string>();
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
 
   const onDragEnd = (result: DropResult) => {
     // dropped outside the lists
@@ -102,12 +109,24 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
         <section className="my-8 flex h-full flex-wrap gap-10 rounded-xl bg-slate-50 p-6 ">
           <DragDropContext onDragEnd={onDragEnd}>
             {board.lists.map((list) => (
-              <List listData={list} key={list.id}></List>
+              <List
+                listData={list}
+                key={list.id}
+                selectTask={(id: string) => {
+                  openModal();
+                  setSelectedTask(id);
+                }}
+              ></List>
             ))}
             <AddList boardId={board.id}></AddList>
           </DragDropContext>
         </section>
       </main>
+      {selectedTask && (
+        <Modal isOpen={isOpen} onClose={closeModal}>
+          <TaskView taskId={selectedTask}></TaskView>
+        </Modal>
+      )}
     </HeaderLayout>
   );
 };

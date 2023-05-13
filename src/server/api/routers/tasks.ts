@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { memberGuard } from "~/server/utils";
+import { boardMemberGuard } from "~/server/utils";
 
 export const tasksRouter = createTRPCRouter({
   getPreviewById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
@@ -9,6 +9,11 @@ export const tasksRouter = createTRPCRouter({
       where: { id: input },
       include: {
         labels: true,
+        list: {
+          select: {
+            boardId: true
+          }
+        },
         _count: {
           select: {
             comments: true
@@ -25,8 +30,10 @@ export const tasksRouter = createTRPCRouter({
         }
       }
     });
+    const userId = ctx.session.user.id;
 
     if (!task) throw new TRPCError({ code: "NOT_FOUND" });
+    await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
 
     return task;
   }),
@@ -35,6 +42,13 @@ export const tasksRouter = createTRPCRouter({
       where: { id: input },
       include: {
         labels: true,
+        comments: true,
+        list: {
+          select: {
+            title: true,
+            boardId: true
+          }
+        },
         members: {
           select: {
             id: true,
@@ -44,8 +58,10 @@ export const tasksRouter = createTRPCRouter({
         }
       }
     });
+    const userId = ctx.session.user.id;
 
     if (!task) throw new TRPCError({ code: "NOT_FOUND" });
+    await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
 
     return task;
   }),
@@ -71,7 +87,7 @@ export const tasksRouter = createTRPCRouter({
       });
 
       if (!list) throw new TRPCError({ code: "BAD_REQUEST" });
-      await memberGuard(ctx.prisma, list.boardId, userId);
+      await boardMemberGuard(ctx.prisma, list.boardId, userId);
 
       const task = await ctx.prisma.task.create({
         data: {
@@ -107,8 +123,8 @@ export const tasksRouter = createTRPCRouter({
         }
       });
       if (!destList || !task || !task.list) throw new TRPCError({ code: "BAD_REQUEST" });
-      await memberGuard(ctx.prisma, destList.boardId, userId);
-      await memberGuard(ctx.prisma, task.list.boardId, userId);
+      await boardMemberGuard(ctx.prisma, destList.boardId, userId);
+      await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
 
       if (input.destListId !== task.listId)
         await ctx.prisma.$transaction([

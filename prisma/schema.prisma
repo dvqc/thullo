@@ -69,12 +69,13 @@ model Label {
 }
 
 model Comment {
-  id     String @id @default(cuid())
-  userId String
-  taskId String
-  text   String
-  owner  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  userId    String
+  taskId    String
+  text      String
+  createdOn DateTime
+  owner     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 model Task {

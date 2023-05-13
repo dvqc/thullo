@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
-import { memberGuard } from "~/server/utils";
+import { boardMemberGuard } from "~/server/utils";
 
 export const listsRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
@@ -41,7 +41,7 @@ export const listsRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
 
-      await memberGuard(ctx.prisma, input.boardId, userId);
+      await boardMemberGuard(ctx.prisma, input.boardId, userId);
 
       const list = await ctx.prisma.list.create({
         data: {
@@ -70,7 +70,7 @@ export const listsRouter = createTRPCRouter({
         }
       });
       if (!list) throw new TRPCError({ code: "NOT_FOUND" });
-      await memberGuard(ctx.prisma, list.boardId, userId);
+      await boardMemberGuard(ctx.prisma, list.boardId, userId);
 
       list = await ctx.prisma.list.update({
         data: {
@@ -95,7 +95,7 @@ export const listsRouter = createTRPCRouter({
     });
 
     if (!list) throw new TRPCError({ code: "NOT_FOUND" });
-    await memberGuard(ctx.prisma, list.boardId, userId);
+    await boardMemberGuard(ctx.prisma, list.boardId, userId);
 
     const deleted = await ctx.prisma.list.delete({
       where: {
