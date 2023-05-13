@@ -12,9 +12,21 @@ import CommentsSection from "./CommentsSection";
 
 export default function TaskView({ taskId }: { taskId: string }) {
   const { data: task } = api.tasks.getById.useQuery(taskId);
+  const updateTaskMutation = api.tasks.patch.useMutation();
+  const utils = api.useContext();
 
   if (!task) return null;
 
+  const handleDescription = (description: string) => {
+    updateTaskMutation.mutate(
+      { id: taskId, data: { description } },
+      {
+        onSuccess: () => {
+          utils.tasks.getById.invalidate(taskId);
+        }
+      }
+    );
+  };
   return (
     <div className="w-screen max-w-2xl ">
       <Image
@@ -34,7 +46,7 @@ export default function TaskView({ taskId }: { taskId: string }) {
             </p>
           </div>
           <div className="my-6">
-            <DescriptionEditable description={task.description} onSave={() => {}}></DescriptionEditable>
+            <DescriptionEditable description={task.description} onSave={handleDescription}></DescriptionEditable>
           </div>
           <article className="my-6">
             <div className="flex items-center space-x-2 fill-gray-400 text-gray-400">
@@ -63,7 +75,7 @@ export default function TaskView({ taskId }: { taskId: string }) {
 
           <div className="my-4 space-y-3">
             <Collapsible
-              content={<LabelPicker></LabelPicker>}
+              content={<LabelPicker taskId={taskId}></LabelPicker>}
               toggler={
                 <Button btnType="secondary" className="w-full justify-start gap-4">
                   <LabelSvg className="h-4 w-4"></LabelSvg>

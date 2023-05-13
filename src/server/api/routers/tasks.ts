@@ -98,6 +98,46 @@ export const tasksRouter = createTRPCRouter({
 
       return task;
     }),
+  patch: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        data: z.object({
+          title: z.string().optional(),
+          description: z.string().optional(),
+          cover: z.string().optional()
+        })
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const taskToUpdate = await ctx.prisma.task.findUnique({
+        where: {
+          id: input.id
+        },
+        include: {
+          list: {
+            include: {
+              board: true
+            }
+          }
+        }
+      });
+
+      if (!taskToUpdate) throw new TRPCError({ code: "NOT_FOUND" });
+      if (taskToUpdate.list.board.userId !== userId) throw new TRPCError({ code: "FORBIDDEN" });
+
+      const updatedTask = await ctx.prisma.task.update({
+        data: {
+          ...input.data
+        },
+        where: {
+          id: input.id
+        }
+      });
+
+      return updatedTask;
+    }),
 
   moveTask: protectedProcedure
     .input(
