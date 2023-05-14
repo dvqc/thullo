@@ -25,9 +25,13 @@ export default function Comment({ comment }: { comment: Comment }) {
 
   const handleDelete = () => {
     deleteCommentMutation.mutate(comment.id, {
-      onSuccess: () => utils.comments.getByTaskId.invalidate(comment.taskId)
+      onSuccess: () => {
+        utils.tasks.getPreviewById.invalidate(comment.taskId);
+        utils.comments.getByTaskId.invalidate(comment.taskId);
+      }
     });
   };
+
   const handleEdting = () => {
     setEditing(!isEditing);
   };
@@ -42,16 +46,21 @@ export default function Comment({ comment }: { comment: Comment }) {
           }
         },
         {
-          onSuccess: () => utils.comments.getByTaskId.invalidate(comment.taskId)
+          onSuccess: () => {
+            utils.comments.getByTaskId.invalidate(comment.taskId);
+            utils.tasks.getPreviewById.invalidate(comment.taskId);
+          }
         }
       );
       setEditing(false);
     }
   };
+
   const handleCancel = () => {
     setEditing(false);
     setCommentText(comment.text);
   };
+
   return (
     <article>
       <div className="flex justify-between">

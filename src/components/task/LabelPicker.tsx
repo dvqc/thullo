@@ -40,6 +40,7 @@ export default function LabelPicker({ taskId }: { taskId: string }) {
         {
           onSuccess: () => {
             utils.labels.getByTaskId.invalidate(taskId);
+            utils.tasks.getPreviewById.invalidate(taskId);
           },
           onSettled: () => {
             setSelectedColor(null), setLabel("");

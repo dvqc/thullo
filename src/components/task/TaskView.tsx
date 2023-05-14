@@ -27,6 +27,7 @@ export default function TaskView({ taskId }: { taskId: string }) {
       }
     );
   };
+
   return (
     <div className="w-screen max-w-2xl ">
       <Image

@@ -3,7 +3,7 @@ import { Button, UserImage } from "../commons";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
-export default function WriteComment({ taskId }: { taskId: string }) {
+export default function WriteComment({ taskId }: { taskId: string}) {
   const [comment, setComment] = useState("");
   const session = useSession();
   const user = session.data?.user;
@@ -24,8 +24,9 @@ export default function WriteComment({ taskId }: { taskId: string }) {
         {
           onSuccess: () => {
             utils.comments.getByTaskId.invalidate(taskId);
-            setComment("");
-          }
+            utils.tasks.getPreviewById.invalidate(taskId);
+          },
+          onSettled: () => setComment("")
         }
       );
   };
