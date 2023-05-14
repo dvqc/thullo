@@ -1,9 +1,7 @@
 import { Button, Collapsible, DescriptionEditable, UserImage } from "../commons";
 import { AccountSvg, FileSvg, AddSvg, GroupSvg, LabelSvg } from "../svg";
 import Image from "next/image";
-import Attachment from "./Attachment";
 import WriteComment from "./WriteComment";
-import Comment from "./Comment";
 import LabelPicker from "./LabelPicker";
 import CoverChooser from "../boards/CoverChooser";
 import { Invite } from "../boards";

@@ -11,7 +11,6 @@ import { api } from "~/utils/api";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const session = await getServerAuthSession(ctx);
-
   if (!session || !session.user)
     return {
       redirect: {
@@ -19,17 +18,30 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         permanent: false
       }
     };
-
   const userId = session.user.id;
   const boardsData = await prisma.board.findMany({
-    where: {
-      userId: {
-        equals: userId
-      }
-    },
     include: {
       owner: true,
-      team: true
+      team: {
+        select: {
+          id: true,
+          name: true,
+          image: true
+        }
+      }
+    },
+    where: {
+      OR: [
+        {
+          team: {
+            some: {
+              id: userId
+            }
+          }
+        },
+        { userId },
+        { isPrivate: false }
+      ]
     }
   });
 

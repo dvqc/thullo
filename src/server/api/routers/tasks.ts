@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { boardMemberGuard } from "~/server/utils";
+import { boardMemberGuard, taskMemberGuard } from "~/server/utils";
 
 export const tasksRouter = createTRPCRouter({
   getPreviewById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
@@ -164,7 +164,7 @@ export const tasksRouter = createTRPCRouter({
       });
       if (!destList || !task || !task.list) throw new TRPCError({ code: "BAD_REQUEST" });
       await boardMemberGuard(ctx.prisma, destList.boardId, userId);
-      await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
+      await taskMemberGuard(ctx.prisma, task.list.boardId, userId);
 
       if (input.destListId !== task.listId)
         await ctx.prisma.$transaction([

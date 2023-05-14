@@ -56,7 +56,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         permanent: false
       }
     };
-  if (!boardData.team.find((member) => member.id === userId) && boardData.userId !== userId)
+  if (boardData.isPrivate && !boardData.team.find((member) => member.id === userId) && boardData.userId !== userId)
     return {
       redirect: {
         destination: "/403",

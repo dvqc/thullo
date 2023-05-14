@@ -5,13 +5,15 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
+import { boardMemberGuard } from "~/server/utils";
 
 const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 export const boardRouter = createTRPCRouter({
-  getAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.board.findMany({
+  getAll: protectedProcedure.query(async ({ ctx }) => {
+    const userId = ctx.session.user.id;
+    const boards = await ctx.prisma.board.findMany({
       include: {
         owner: true,
         team: {
@@ -21,8 +23,22 @@ export const boardRouter = createTRPCRouter({
             image: true
           }
         }
+      },
+      where: {
+        OR: [
+          {
+            team: {
+              some: {
+                id: userId
+              }
+            }
+          },
+          { userId },
+          { isPrivate: false }
+        ]
       }
     });
+    return boards;
   }),
 
   getById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
@@ -32,7 +48,7 @@ export const boardRouter = createTRPCRouter({
         owner: true,
         lists: {
           select: {
-            id: true,
+            id: true
           }
         },
         team: {
@@ -44,8 +60,9 @@ export const boardRouter = createTRPCRouter({
         }
       }
     });
-
     if (!board) throw new TRPCError({ code: "NOT_FOUND" });
+    const userId = ctx.session.user.id;
+    await boardMemberGuard(ctx.prisma, board.id, userId);
 
     return board;
   }),
