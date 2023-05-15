@@ -20,11 +20,26 @@ const Menu = ({ board }: { board: Board }) => {
   });
 
   const handleVisiblity = (isPrivate: boolean) => {
-    patchBoardMutation.mutate({ id: board.id, data: { isPrivate } });
+    patchBoardMutation.mutate(
+      { id: board.id, data: { isPrivate } },
+      {
+        onSettled: () => {
+          utils.boards.getById.invalidate(board.id);
+        }
+      }
+    );
   };
 
-  const handleDescription = (description: string) => {
-    patchBoardMutation.mutate({ id: board.id, data: { description } });
+  const handleDescription = (description: string, reset?: ()=> void ) => {
+    patchBoardMutation.mutate(
+      { id: board.id, data: { description } },
+      {
+        onSettled: () => {
+          utils.boards.getById.invalidate(board.id);
+          if(reset) reset()
+        }
+      }
+    );
   };
 
   return (
@@ -51,7 +66,7 @@ const Menu = ({ board }: { board: Board }) => {
         />
 
         <div className="flex space-x-3">
-          {board.team.map((user, index) => (
+          {[board.owner, ...board.team].map((user, index) => (
             <Image
               className="h-8 w-8 rounded-lg"
               width={32}

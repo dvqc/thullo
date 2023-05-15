@@ -10,8 +10,8 @@ export const tasksRouter = createTRPCRouter({
       include: {
         labels: true,
         list: {
-          select: {
-            boardId: true
+          include: {
+            board: true
           }
         },
         _count: {
@@ -30,12 +30,13 @@ export const tasksRouter = createTRPCRouter({
         }
       }
     });
-    const userId = ctx.session.user.id;
 
     if (!task) throw new TRPCError({ code: "NOT_FOUND" });
+    if (!task.list.board.isPrivate) return task as Omit<typeof task, "list">;
+    const userId = ctx.session.user.id;
     await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
 
-    return task;
+    return task as Omit<typeof task, "list">;
   }),
   getById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const task = await ctx.prisma.task.findUnique({
@@ -44,9 +45,8 @@ export const tasksRouter = createTRPCRouter({
         labels: true,
         comments: true,
         list: {
-          select: {
-            title: true,
-            boardId: true
+          include: {
+            board: true
           }
         },
         members: {
@@ -58,12 +58,14 @@ export const tasksRouter = createTRPCRouter({
         }
       }
     });
-    const userId = ctx.session.user.id;
-
     if (!task) throw new TRPCError({ code: "NOT_FOUND" });
-    await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
+    const { list, ...taskReturn } = task;
 
-    return task;
+    if (!list.board.isPrivate) return { ...taskReturn, list: { title: list.title } };
+    const userId = ctx.session.user.id;
+    await boardMemberGuard(ctx.prisma, list.boardId, userId);
+
+    return { ...taskReturn, list: { title: list.title } };
   }),
 
   create: protectedProcedure
@@ -98,6 +100,7 @@ export const tasksRouter = createTRPCRouter({
 
       return task;
     }),
+
   patch: protectedProcedure
     .input(
       z.object({
@@ -116,16 +119,12 @@ export const tasksRouter = createTRPCRouter({
           id: input.id
         },
         include: {
-          list: {
-            include: {
-              board: true
-            }
-          }
+          list: true
         }
       });
 
       if (!taskToUpdate) throw new TRPCError({ code: "NOT_FOUND" });
-      if (taskToUpdate.list.board.userId !== userId) throw new TRPCError({ code: "FORBIDDEN" });
+      await boardMemberGuard(ctx.prisma, taskToUpdate.list.boardId, userId);
 
       const updatedTask = await ctx.prisma.task.update({
         data: {
@@ -164,7 +163,7 @@ export const tasksRouter = createTRPCRouter({
       });
       if (!destList || !task || !task.list) throw new TRPCError({ code: "BAD_REQUEST" });
       await boardMemberGuard(ctx.prisma, destList.boardId, userId);
-      await taskMemberGuard(ctx.prisma, task.list.boardId, userId);
+      if (task.listId !== input.destListId) await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
 
       if (input.destListId !== task.listId)
         await ctx.prisma.$transaction([

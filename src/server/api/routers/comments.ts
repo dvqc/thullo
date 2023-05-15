@@ -18,30 +18,41 @@ export const commentsRouter = createTRPCRouter({
         task: {
           include: {
             list: {
-              select: {
-                boardId: true
+              include: {
+                board: {
+                  select: {
+                    isPrivate: true
+                  }
+                }
               }
             }
           }
         }
       }
     });
-    const userId = ctx.session.user.id;
     if (!comment) throw new TRPCError({ code: "NOT_FOUND" });
+    if (!comment.task.list.board.isPrivate) return comment as Omit<typeof comment, "task">;
+
+    const userId = ctx.session.user.id;
     await boardMemberGuard(ctx.prisma, comment.task.list.boardId, userId);
 
-    return comment;
+    return comment as Omit<typeof comment, "task">;
   }),
+
   getByTaskId: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const task = await ctx.prisma.task.findUnique({
       where: { id: input },
       include: {
-        list: true
+        list: {
+          include: {
+            board: true
+          }
+        }
       }
     });
+
     if (!task) throw new TRPCError({ code: "NOT_FOUND" });
-    const userId = ctx.session.user.id;
-    await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
+
     const comments = await ctx.prisma.comment.findMany({
       where: {
         taskId: input
@@ -56,6 +67,11 @@ export const commentsRouter = createTRPCRouter({
         }
       }
     });
+
+    if (!task.list.board.isPrivate) return comments;
+    const userId = ctx.session.user.id;
+    await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
+
     return comments;
   }),
 
@@ -81,7 +97,6 @@ export const commentsRouter = createTRPCRouter({
 
       if (!task) throw new TRPCError({ code: "BAD_REQUEST" });
       await boardMemberGuard(ctx.prisma, task.list.boardId, userId);
-      await taskMemberGuard(ctx.prisma, task.id, userId);
 
       const comment = await ctx.prisma.comment.create({
         data: {

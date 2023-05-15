@@ -5,11 +5,7 @@ import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/
 import { boardMemberGuard } from "~/server/utils";
 
 export const listsRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.list.findMany();
-  }),
-
-  getById: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
+  getById: protectedProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const list = await ctx.prisma.list.findUnique({
       where: { id: input },
       include: {
@@ -21,14 +17,23 @@ export const listsRouter = createTRPCRouter({
           orderBy: {
             indx: "asc"
           }
+        },
+        board: {
+          select: {
+            isPrivate: true
+          }
         }
       }
     });
 
     if (!list) throw new TRPCError({ code: "NOT_FOUND" });
+    if (!list.board.isPrivate) return list;
+    const userId = ctx.session.user.id;
+    await boardMemberGuard(ctx.prisma, list.boardId, userId);
 
     return list;
   }),
+
   create: protectedProcedure
     .input(
       z.object({
@@ -40,7 +45,6 @@ export const listsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
-
       await boardMemberGuard(ctx.prisma, input.boardId, userId);
 
       const list = await ctx.prisma.list.create({

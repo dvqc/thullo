@@ -11,7 +11,6 @@ export async function boardMemberGuard(prisma: PrismaClient, boardId: string, us
     }
   });
   if (!board) throw new TRPCError({ code: "BAD_REQUEST" });
-  if (!board.isPrivate) return;
   if (userId === board.userId) return;
 
   for (const member of board.team) {

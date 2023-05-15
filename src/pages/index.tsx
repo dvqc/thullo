@@ -68,9 +68,8 @@ const Home = ({ boardsData }: InferGetServerSidePropsType<typeof getServerSidePr
           </div>
           <section className="my-10 flex flex-wrap gap-10">
             {boards?.map((board) => (
-              <Link href={"/boards/" + board.id}>
+              <Link key={board.id} href={"/boards/" + board.id}>
                 <BoardCard
-                  key={board.id}
                   title={board.title}
                   img={board.picture ?? ""}
                   members={[board.owner, ...board.team]}

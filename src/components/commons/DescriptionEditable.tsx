@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FileSvg, PenSvg } from "../svg";
 import Animate from "./Animate";
 import Button from "./Button";
@@ -8,7 +8,7 @@ export default function DescriptionEditable({
   onSave
 }: {
   description: string;
-  onSave: (description: string) => void;
+  onSave: (description: string, reset?: () => void) => void;
 }) {
   const [isEditing, setEditing] = useState(false);
   const [draft, setDraft] = useState(description);
@@ -19,7 +19,7 @@ export default function DescriptionEditable({
   };
 
   const handleSave = () => {
-    onSave(draft);
+    onSave(draft, () => setDraft(description));
     setEditing(false);
   };
 
@@ -27,6 +27,11 @@ export default function DescriptionEditable({
     setDraft(description);
     setEditing(false);
   };
+
+  useEffect(() => {
+    setDraft(description);
+  }, [description]);
+
   return (
     <div className="flex flex-col space-y-2">
       <div className="flex items-center space-x-2 fill-gray-400 text-gray-400">
@@ -44,7 +49,8 @@ export default function DescriptionEditable({
             isEditing ? "border-2 border-gray-200 p-2 outline-none  focus:border-blue-500" : ""
           }`}
           onBlur={(e) => {
-            setDraft(e.target.outerText);
+            console.log("onBlur");
+            setDraft(e.target.innerText);
           }}
           suppressContentEditableWarning={true}
         >

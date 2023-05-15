@@ -61,6 +61,7 @@ export const boardRouter = createTRPCRouter({
       }
     });
     if (!board) throw new TRPCError({ code: "NOT_FOUND" });
+    if (!board.isPrivate) return board;
     const userId = ctx.session.user.id;
     await boardMemberGuard(ctx.prisma, board.id, userId);
 
