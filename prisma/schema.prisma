@@ -3,10 +3,11 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl         = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+  provider = "postgresql"
+  // url      = "file:./db.sqlite"
+  url      = env("POSTGRES_URL") // uses connection pooling
+  // directUrl         = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  // shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
 // Necessary for Next auth
@@ -26,6 +27,7 @@ model Account {
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@map("account")
 }
 
 model Session {
@@ -34,6 +36,8 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("session")
 }
 
 model User {
@@ -45,9 +49,11 @@ model User {
   accounts      Account[]
   sessions      Session[]
   myboards      Board[]   @relation(name: "owner")
-  boards        Board[]   @relation(name: "team")
+  boards        Board[]
   tasks         Task[]
   comments      Comment[]
+
+  @@map("user")
 }
 
 model VerificationToken {
@@ -56,6 +62,7 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+  @@map("verification_token")
 }
 
 model Label {
@@ -64,6 +71,8 @@ model Label {
   name   String
   color  String
   task   Task   @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@map("label")
 }
 
 model Comment {
@@ -74,6 +83,8 @@ model Comment {
   createdOn DateTime
   owner     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@map("comment")
 }
 
 model Task {
@@ -85,9 +96,10 @@ model Task {
   comments    Comment[]
   labels      Label[]
   members     User[]
+  listId      String
+  list        List      @relation(fields: [listId], references: [id], onDelete: Cascade)
 
-  list   List   @relation(fields: [listId], references: [id], onDelete: Cascade)
-  listId String
+  @@map("task")
 }
 
 model List {
@@ -96,6 +108,8 @@ model List {
   title   String
   tasks   Task[]
   board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  @@map("list")
 }
 
 model Board {
@@ -107,6 +121,8 @@ model Board {
   picture     String?
   createdAt   DateTime
   owner       User     @relation(fields: [userId], references: [id], onDelete: Cascade, name: "owner")
-  team        User[]   @relation(name: "team")
+  team        User[]
   lists       List[]
+
+  @@map("board")
 }

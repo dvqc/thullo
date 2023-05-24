@@ -56,8 +56,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         permanent: false
       }
     };
-    
-  if (boardData.isPrivate && boardData.userId !== userId  && !boardData.team.find((member) => member.id === userId))
+
+  if (boardData.isPrivate && boardData.userId !== userId && !boardData.team.find((member) => member.id === userId))
     return {
       redirect: {
         destination: "/403",
@@ -107,7 +107,7 @@ const Board = ({ boardData }: InferGetServerSidePropsType<typeof getServerSidePr
     <HeaderLayout boardTitle={board.title}>
       <main className="flex w-full flex-grow flex-col bg-white py-6 px-6">
         <Menu board={board}></Menu>
-        <section className="my-8 flex h-full flex-wrap gap-10 rounded-xl bg-slate-50 p-6 ">
+        <section className="my-8 flex h-full flex-wrap gap-10 rounded-xl bg-slate-50 px-6 pt-6 pb-14 ">
           <DragDropContext onDragEnd={onDragEnd}>
             {board.lists.map((list) => (
               <List

@@ -168,7 +168,7 @@ export const tasksRouter = createTRPCRouter({
       if (input.destListId !== task.listId)
         await ctx.prisma.$transaction([
           ctx.prisma
-            .$executeRaw`UPDATE Task SET indx = indx+1 WHERE listId=${input.destListId} and indx >= ${input.indx};`,
+            .$executeRaw`UPDATE Task SET indx = indx+1 WHERE "listId"=${input.destListId} and indx >= ${input.indx};`,
           ctx.prisma.task.update({
             data: {
               listId: input.destListId,
@@ -178,20 +178,20 @@ export const tasksRouter = createTRPCRouter({
               id: input.taskId
             }
           }),
-          ctx.prisma.$executeRaw`UPDATE Task SET indx = indx-1 WHERE listId=${task.listId} and indx > ${task.indx};`
+          ctx.prisma.$executeRaw`UPDATE Task SET indx = indx-1 WHERE "listId"=${task.listId} and indx > ${task.indx};`
         ]);
       else if (input.indx > task.indx)
         await ctx.prisma.$transaction([
           ctx.prisma.$executeRaw`UPDATE Task SET indx = -1 WHERE id=${input.taskId};`,
           ctx.prisma
-            .$executeRaw`UPDATE Task SET indx = indx-1 WHERE listId=${task.listId} and indx > ${task.indx} and indx <= ${input.indx};`,
+            .$executeRaw`UPDATE Task SET indx = indx-1 WHERE "listId"=${task.listId} and indx > ${task.indx} and indx <= ${input.indx};`,
           ctx.prisma.$executeRaw`UPDATE Task SET indx =${input.indx} WHERE id=${input.taskId};`
         ]);
       else if (input.indx < task.indx)
         await ctx.prisma.$transaction([
           ctx.prisma.$executeRaw`UPDATE Task SET indx = -1 WHERE id=${input.taskId};`,
           ctx.prisma
-            .$executeRaw`UPDATE Task SET indx = indx+1 WHERE listId=${task.listId} and indx < ${task.indx} and indx >= ${input.indx};`,
+            .$executeRaw`UPDATE Task SET indx = indx+1 WHERE "listId"=${task.listId} and indx < ${task.indx} and indx >= ${input.indx};`,
           ctx.prisma.$executeRaw`UPDATE Task SET indx =${input.indx} WHERE id=${input.taskId};`
         ]);
     })
