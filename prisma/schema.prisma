@@ -41,17 +41,19 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  myboards      Board[]   @relation(name: "owner")
-  boards        Board[]
-  tasks         Task[]
-  comments      Comment[]
+  id                  String        @id @default(cuid())
+  name                String?
+  email               String?       @unique
+  emailVerified       DateTime?
+  image               String?
+  accounts            Account[]
+  sessions            Session[]
+  myboards            Board[]       @relation(name: "owner")
+  boards              Board[]
+  tasks               Task[]
+  comments            Comment[]
+  sentInvitations     Invitations[] @relation(name: "sender")
+  receivedInvitations Invitations[] @relation(name: "receiver")
 
   @@map("user")
 }
@@ -80,7 +82,7 @@ model Comment {
   userId    String
   taskId    String
   text      String
-  createdOn DateTime
+  createdOn DateTime @default(now())
   owner     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
 
@@ -113,16 +115,30 @@ model List {
 }
 
 model Board {
-  id          String   @id @default(cuid())
+  id          String        @id @default(cuid())
   userId      String
   title       String
-  description String   @default("")
-  isPrivate   Boolean  @default(false)
+  description String        @default("")
+  isPrivate   Boolean       @default(false)
   picture     String?
-  createdAt   DateTime
-  owner       User     @relation(fields: [userId], references: [id], onDelete: Cascade, name: "owner")
+  createdAt   DateTime      @default(now())
+  owner       User          @relation(fields: [userId], references: [id], onDelete: Cascade, name: "owner")
   team        User[]
   lists       List[]
+  Invitations Invitations[]
 
   @@map("board")
+}
+
+model Invitations {
+  senderId   String
+  receiverId String
+  boardId    String
+  sender     User     @relation(fields: [senderId], references: [id], onDelete: Cascade, name: "sender")
+  receiver   User     @relation(fields: [receiverId], references: [id], onDelete: Cascade, name: "receiver")
+  board      Board    @relation(fields: [boardId], references: [id])
+  createdAt  DateTime @default(now())
+
+  @@unique([senderId, receiverId, boardId])
+  @@map("invitations")
 }

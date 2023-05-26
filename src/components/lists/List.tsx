@@ -13,8 +13,6 @@ export default function List({ listData, selectTask }: { listData: List; selectT
     onSuccess: () => utils.boards.getById.invalidate(list.boardId)
   });
 
-  if (!list) return null;
-
   return (
     <StrictModeDroppable direction="vertical" droppableId={list.id}>
       {(provided, snapshot) => (

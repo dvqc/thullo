@@ -1,15 +1,15 @@
 import { Draggable } from "react-beautiful-dnd";
-import { Button, Members } from "../commons";
+import { Button, Members, Skeleton } from "../commons";
 import { AddSvg, CommentSvg } from "../svg";
 import Badge from "./Badge";
 import { api } from "~/utils/api";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-function Task({ taskId , selectTask }: { taskId: string;selectTask: (id: string) => void }) {
+function Task({ taskId, selectTask }: { taskId: string; selectTask: (id: string) => void }) {
   const { data: task } = api.tasks.getPreviewById.useQuery(taskId);
 
-  if (!task) return null;
+  if (!task) return <Skeleton className="h-24"></Skeleton>;
 
   return (
     <Draggable key={task.id + task.indx} draggableId={task.id} index={task.indx}>
