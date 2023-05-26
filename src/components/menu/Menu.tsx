@@ -19,6 +19,10 @@ const Menu = ({ board }: { board: Board }) => {
     onSuccess: () => utils.boards.getById.invalidate(board.id)
   });
 
+  const inviteUserMutation = api.invitations.sendInvitation.useMutation({
+    onSuccess: () => utils.boards.getById.invalidate(board.id)
+  });
+
   const handleVisiblity = (isPrivate: boolean) => {
     patchBoardMutation.mutate(
       { id: board.id, data: { isPrivate } },
@@ -29,14 +33,24 @@ const Menu = ({ board }: { board: Board }) => {
       }
     );
   };
+  const handleInvite = (userId: string) => {
+    inviteUserMutation.mutate(
+      { receiverId: userId, data: { boardId: board.id } },
+      {
+        onSettled: () => {
+          utils.boards.getById.invalidate(board.id);
+        }
+      }
+    );
+  };
 
-  const handleDescription = (description: string, reset?: ()=> void ) => {
+  const handleDescription = (description: string, reset?: () => void) => {
     patchBoardMutation.mutate(
       { id: board.id, data: { description } },
       {
         onSettled: () => {
           utils.boards.getById.invalidate(board.id);
-          if(reset) reset()
+          if (reset) reset();
         }
       }
     );
@@ -82,7 +96,14 @@ const Menu = ({ board }: { board: Board }) => {
                 <AddSvg className="h-4 w-4"></AddSvg>
               </Button>
             }
-            content={<Invite></Invite>}
+            content={
+              <Invite
+                onInvite={handleInvite}
+                loading={inviteUserMutation.isLoading}
+                owner={board.owner}
+                members={board.team}
+              ></Invite>
+            }
           />
         </div>
       </div>

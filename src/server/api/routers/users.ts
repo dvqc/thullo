@@ -12,7 +12,33 @@ export const usersRouter = createTRPCRouter({
       }
     });
     return foundUsers;
-  })
+  }),
+  searchInBoard: protectedProcedure
+    .input(
+      z.object({
+        boardId: z.string().min(1),
+        q: z.string().min(1)
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      if (input.q.length < 2) return [];
+
+      const foundUsers = await ctx.prisma.user.findMany({
+        where: {
+          AND: {
+            boards: {
+              some: {
+                id: input.boardId
+              }
+            },
+            name: {
+              contains: input.q
+            }
+          }
+        }
+      });
+      return foundUsers;
+    })
 });
 
 export default usersRouter;

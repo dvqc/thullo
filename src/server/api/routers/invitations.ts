@@ -33,6 +33,7 @@ export const invitationsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
+      if (userId === input.receiverId) throw new TRPCError({ code: "BAD_REQUEST" });
       const receiver = ctx.prisma.user.findUnique({
         where: {
           id: input.receiverId
@@ -48,14 +49,17 @@ export const invitationsRouter = createTRPCRouter({
       if (!board) throw new TRPCError({ code: "BAD_REQUEST" });
       if (userId !== board.userId) throw new TRPCError({ code: "FORBIDDEN" });
 
-      const invitation = await ctx.prisma.invitations.create({
-        data: {
-          ...input.data,
-          receiverId: input.receiverId,
-          senderId: userId
-        }
-      });
-
+      const invitation = await ctx.prisma.invitations
+        .create({
+          data: {
+            ...input.data,
+            receiverId: input.receiverId,
+            senderId: userId
+          }
+        })
+        .catch((err) => {
+          if (err.code === "P2002") throw new TRPCError({ code: "CONFLICT" });
+        });
       return invitation;
     }),
 
