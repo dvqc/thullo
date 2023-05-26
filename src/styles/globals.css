@@ -59,6 +59,10 @@ textarea {
     @apply border-1 border-red-500 bg-none fill-red-500 text-red-500 hover:bg-red-500
      hover:fill-white hover:text-white;
   }
+
+  .skeleton {
+    @apply h-4 w-full animate-pulse rounded-lg bg-slate-200;
+  }
 }
 
 .scroll-hidden {

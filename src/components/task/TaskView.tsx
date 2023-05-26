@@ -7,13 +7,14 @@ import CoverChooser from "../boards/CoverChooser";
 import { Invite } from "../boards";
 import { api } from "~/utils/api";
 import CommentsSection from "./CommentsSection";
+import Loader from "./Loader";
 
 export default function TaskView({ taskId }: { taskId: string }) {
   const { data: task } = api.tasks.getById.useQuery(taskId);
   const updateTaskMutation = api.tasks.patch.useMutation();
   const utils = api.useContext();
 
-  if (!task) return null;
+  if (!task) return <Loader></Loader>;
 
   const handleDescription = (description: string) => {
     updateTaskMutation.mutate(
