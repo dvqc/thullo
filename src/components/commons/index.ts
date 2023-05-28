@@ -9,3 +9,4 @@ export { default as UserImage } from "./UserImage";
 export { default as DescriptionEditable } from "./DescriptionEditable";
 export { default as Modal } from "./Modal";
 export { default as Skeleton } from "./Skeleton";
+export { default as Accordion } from "./Accordion";
